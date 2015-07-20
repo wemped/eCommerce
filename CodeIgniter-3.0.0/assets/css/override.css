@@ -1,0 +1,41 @@
+nav .nav-wrapper i
+{
+	display: inline-block;
+	color: black;
+	position: relative;
+	top: 5px;
+}
+nav .nav-wrapper a
+{
+	margin-left: 5px;
+}
+span
+{
+	display: inline-block;
+}
+nav
+{
+	background-color: #DE5842;
+}
+html
+{
+	background-color: #EDEDEA;
+}
+div.container
+{
+	background-color: white;
+	padding: 15px;
+}
+.btn
+{
+	background-color: #DE5842;
+}
+.btn:hover
+{
+	background-color: #9C2D1C;
+}
+div.error p
+{
+	font-size: 0.8em;
+	color: red;
+}
