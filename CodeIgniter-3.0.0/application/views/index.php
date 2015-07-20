@@ -18,7 +18,7 @@
 <body>
     <nav>
         <ul class='right'>
-            <li><a href="">Shopping Cart (2)</a></li>
+            <li><a href="#">Shopping Cart (2)</a></li>
         </ul>
         <ul id='slide-out' class='side-nav'>
             <li>
