@@ -1,0 +1,158 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema eCommerce
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema eCommerce
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `eCommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `eCommerce` ;
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `first_name` VARCHAR(45) NULL COMMENT '',
+  `last_name` VARCHAR(45) NULL COMMENT '',
+  `email` VARCHAR(45) NULL COMMENT '',
+  `password` VARCHAR(45) NULL COMMENT '',
+  `user_level` INT NULL COMMENT '',
+  `created_at` DATETIME NULL COMMENT '',
+  `updated_at` DATETIME NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`artists`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`artists` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `artist` VARCHAR(255) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`albums`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`albums` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(255) NULL COMMENT '',
+  `description` TEXT NULL COMMENT '',
+  `album_cover` VARCHAR(255) NULL COMMENT '',
+  `created_at` DATETIME NULL COMMENT '',
+  `updated_at` DATETIME NULL COMMENT '',
+  `artist_id` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`id`, `artist_id`)  COMMENT '',
+  INDEX `fk_products_artists1_idx` (`artist_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_products_artists1`
+    FOREIGN KEY (`artist_id`)
+    REFERENCES `eCommerce`.`artists` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`orders` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `user_id` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`id`, `user_id`)  COMMENT '',
+  INDEX `fk_orders_users1_idx` (`user_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_orders_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `eCommerce`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`addresses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`addresses` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `number` VARCHAR(45) NULL COMMENT '',
+  `street` VARCHAR(255) NULL COMMENT '',
+  `city` VARCHAR(90) NULL COMMENT '',
+  `state` VARCHAR(2) NULL COMMENT '',
+  `zip` INT NULL COMMENT '',
+  `user_id` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`id`, `user_id`)  COMMENT '',
+  INDEX `fk_addresses_users1_idx` (`user_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_addresses_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `eCommerce`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`albums_has_orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`albums_has_orders` (
+  `album_id` INT NOT NULL COMMENT '',
+  `order_id` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`album_id`, `order_id`)  COMMENT '',
+  INDEX `fk_products_has_orders_orders1_idx` (`order_id` ASC)  COMMENT '',
+  INDEX `fk_products_has_orders_products_idx` (`album_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_products_has_orders_products`
+    FOREIGN KEY (`album_id`)
+    REFERENCES `eCommerce`.`albums` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_has_orders_orders1`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `eCommerce`.`orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`genres`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`genres` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `genre` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `eCommerce`.`albums_has_genres`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `eCommerce`.`albums_has_genres` (
+  `album_id` INT NOT NULL COMMENT '',
+  `album_artist_id` INT NOT NULL COMMENT '',
+  `genre_id` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`album_id`, `album_artist_id`, `genre_id`)  COMMENT '',
+  INDEX `fk_products_has_genres_genres1_idx` (`genre_id` ASC)  COMMENT '',
+  INDEX `fk_products_has_genres_products1_idx` (`album_id` ASC, `album_artist_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_products_has_genres_products1`
+    FOREIGN KEY (`album_id` , `album_artist_id`)
+    REFERENCES `eCommerce`.`albums` (`id` , `artist_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_products_has_genres_genres1`
+    FOREIGN KEY (`genre_id`)
+    REFERENCES `eCommerce`.`genres` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
