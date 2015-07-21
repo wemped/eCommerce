@@ -12,6 +12,10 @@ $route['admin_table_search'] = 'products/search';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//Users - Login and Registration
+$route['login'] = 'users/login';
+$route['register'] = 'users/register';
+
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
