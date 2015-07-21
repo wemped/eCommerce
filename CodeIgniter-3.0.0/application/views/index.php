@@ -7,7 +7,12 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <style type="text/css">
+    .container .row .main-content{
+        margin-top: 8px;
+        padding:  0px 35px;
+    }
+    </style>
     <script type="text/javascript">
     $(document).ready(function(){
         $(".button-collapse").sideNav();
@@ -17,14 +22,16 @@
 </head>
 <body>
     <nav>
+        <a href="" class=" brand-logo">Website Title</a>
         <ul class='right'>
+            <li><a href="">Login</a></li>
             <li><a href="">Shopping Cart (2)</a></li>
         </ul>
         <ul id='slide-out' class='side-nav'>
-            <li>
-                <ul = 'collapsible collapsible-accordian'>
+            <li class='no-padding'>
+                <ul class='collapsible collapsible-accordian'>
                     <li>
-                        <a class='collapsible-header'>Categories<i class="mdi-navigation-arrow-drop-down"></i></a>
+                        <a class='collapsible-header active'>Categories<i class="mdi-navigation-arrow-drop-down"></i></a>
                         <div class='collapsible-body'>
                             <ul>
                                 <li><a>Cat 1</a></li>
@@ -41,7 +48,8 @@
     </nav>
     <div class='container'>
         <div class='row'>
-            <div class='col m2 s12 grey darken-1 hide-on-med-and-down'>
+            <h3> Products </h3>
+            <div class='col l2 hide-on-med-and-down card'>
                 <p>
                     <form>
                         <input type='search' placeholder='search products'/>
@@ -55,7 +63,7 @@
                     </ul>
                 </p>
             </div>
-            <div class='col l10 s12 grey lighten-1'>
+            <div class='col l9 offset-l1 s12 main-content'>
                 <div class='row'>
                     <ul class='pagination right'>
                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -66,6 +74,7 @@
                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                     </ul>
                 </div>
+                <!-- This will be a partial -->
                 <div class='row'>
                     <p>
                         This will be main content
@@ -94,7 +103,8 @@
                         This will be main content
                         This will be main content
                     </p>
-            </div>
+                 </div>
+                 <!-- End partial -->
             </div>
         </div>
     </div>
