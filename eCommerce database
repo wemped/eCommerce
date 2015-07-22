@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `eCommerce`.`albums` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `title` VARCHAR(45) NULL COMMENT '',
-  `ablum_cover` VARCHAR(255) NULL COMMENT '',
+  `album_cover` VARCHAR(255) NULL COMMENT '',
   `description` TEXT NULL COMMENT '',
   `inventory` INT NULL COMMENT '',
   `created_at` DATETIME NULL COMMENT '',
