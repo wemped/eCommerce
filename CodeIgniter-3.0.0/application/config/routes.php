@@ -4,7 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'users';
 
-$route['home'] = 'albums';
+//Users - Login and Registration
+$route['login'] = 'users/login';
+$route['register'] = 'users/register';
+
+/*Admin functionality*/
+$route['admin_home'] = 'albums';
+$route['admin_table_search'] = 'albums/search';
 $route['add_album_page'] = 'albums/add_album_page';
 $route['add_album'] = 'albums/add_album';
 $route['edit_album_page/(:any)'] = 'albums/edit_album_page/$1';
@@ -12,19 +18,9 @@ $route['edit_album_page/edit_album'] = 'albums/edit_album';
 $route['delete_album_page/(:any)'] = 'albums/delete_album_page/$1';
 $route['delete_album/(:any)'] = 'albums/delete_album/$1';
 
-
-$route['products']  = 'products';
-$route['add_product'] = 'products/add';
-
-$route['admin_table_html'] = 'products/search';
-$route['admin_table_search'] = 'products/search';
-
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-//Users - Login and Registration
-$route['login'] = 'users/login';
-$route['register'] = 'users/register';
 
 /*
 | -------------------------------------------------------------------------

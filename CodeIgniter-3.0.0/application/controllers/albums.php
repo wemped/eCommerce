@@ -2,14 +2,32 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Albums extends CI_Controller {
+	public function __construct(){
+		parent::__construct();
+		$this->load->model('Album');
+	}
 
 	public function index()
 	{
 		$albums = $this->album->get_all_albums();
 		$artists = $this->album->get_all_artists();
 		$genres = $this->album->get_all_genres();
-		$this->load->view('home', array("albums" => $albums,"artists"=> $artists,"genres" => $genres));
+		$this->load->view('admin_index', array("albums" => $albums,"artists"=> $artists,"genres" => $genres));
 	}
+
+	public function search(){
+	    $viewdata['albums'] = $this->Album->search();
+	    $viewdata['num_pages'] = ceil($this->Album->count_search()['num_albums']/5);
+	    //echo "hi!";die();
+	    //var_dump($viewdata);die();
+	    if($this->input->post('page')){
+	        $viewdata['curr_page'] = $this->input->post('page');
+	    }else{
+	        $viewdata['curr_page'] = 1;
+	    }
+	    $this->load->view('partials/admin_table',$viewdata);
+	}
+
 	public function add_album_page()
 	{
 		$albums = $this->album->get_all_albums();
@@ -84,15 +102,16 @@ class Albums extends CI_Controller {
 			);
 
 		$this->album->add_album($album_details);
-		
+
 		$album_id = $this->album->get_new_id();
 		for($i = 0; $i < count($genre_array); $i++)
 		{
 			$album_genre = array("genre_id" => $genre_array[$i],"album_id" => $album_id);
 			$this->album->update_albums_has_genres($album_genre);
 		}
-		
+
 		$this->session->set_flashdata("album_success", "You have successfully added a new album! Thank you for your contribution!");
+		//redirect('/home');
 		redirect('/home');
 	}
 

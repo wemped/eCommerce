@@ -15,12 +15,16 @@
     .container .row .search{
         margin-top: 18px;
     }
+    .container .row button{
+       margin-top: 22px;
+       margin-left: 5%;
+    }
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
         $(".button-collapse").sideNav();
         $('.collapsible').collapsible();
-        $.post('/admin_table_html',function(res){
+        $.post('/admin_table_search',function(res){
             $('.table_partial').html(res);
         });
         $("#search").keyup(function(){
@@ -61,11 +65,14 @@
             <div class='col s12 l3'>
                 <h3> Products </h3>
             </div>
-            <div class='col s12 l4 search'>
+            <div class='col s6 l6 search'>
                 <form method='post' id="search_form">
                     <input type='search' name='keyword' placeholder="Search" id='search'/>
                     <input type='hidden' name='page' value='1' id='page_num'/>
                 </form>
+            </div>
+            <div class='col s6 l3'>
+                <a href='/add_album_page'><button class='btn'>Add Album</button></a>
             </div>
             <div class='table_partial'>
             </div>
