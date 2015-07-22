@@ -89,7 +89,7 @@
 		<br>
 		<br>
 		<p>Change the album image url</p>
-		<input type = "text" name = "album_covor" value = "<?= $album['album_cover'] ?>">
+		<input type = "text" name = "album_cover" value = "<?= $album['album_cover'] ?>">
 
 		<p>Change description</p>
 		<textarea name = "description" ><?= $album['description'] ?></textarea>

@@ -78,7 +78,7 @@ class Albums extends CI_Controller {
 
 		$album_details =  array(
 			"title" => $this->input->post('title'),
-			"album_covor" => $this->input->post('album_covor'),
+			"album_cover" => $this->input->post('album_cover'),
 			"description" => $this->input->post('description'),
 			"artist_id" => $artist['id']
 			);
@@ -175,7 +175,7 @@ class Albums extends CI_Controller {
 
 		$album_details =  array(
 			"title" => $this->input->post('title'),
-			"album_covor" => $this->input->post('album_covor'),
+			"album_cover" => $this->input->post('album_cover'),
 			"description" => $this->input->post('description'),
 			"artist_id" => $artist['id'],
 			"inventory" => $this->input->post('inventory'),

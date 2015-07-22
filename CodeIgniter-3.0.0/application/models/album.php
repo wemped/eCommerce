@@ -105,7 +105,7 @@ class album extends CI_Model
 		$query = "UPDATE albums
 				  SET title = ?,album_cover = ?, description = ?, artist_id = ?, inventory = ?, updated_at = NOW()
 				  WHERE id = '{$album_details['id']}'";
-		$values = array($album_details['title'],$album_details['album_covor'],$album_details['description'],$album_details['artist_id'],$album_details['inventory']);
+		$values = array($album_details['title'],$album_details['album_cover'],$album_details['description'],$album_details['artist_id'],$album_details['inventory']);
 		$this->db->query($query, $values);
 	}
 
