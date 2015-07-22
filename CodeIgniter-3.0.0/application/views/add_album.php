@@ -27,16 +27,15 @@
 		
 		<p>Genre</p>
 		<p>Choose from the list</p>
-		<select name = "genre_list">
-			<?php
-			for($i = 0;$i<count($genres);$i++)
-			{
-				?>
-				<option value = <?= $genres[$i]['id'] ?>><?= $genres[$i]['genre'] ?></option>
-				<?php
-			}
+		<?php
+		for($i = 0; $i < count($genres); $i++)
+		{
 			?>
-		</select>
+			<input type = "checkbox" name = <?= 'genre'.$i ?> value = <?= $genres[$i]['id'] ?>><?= $genres[$i]['genre'] ?>
+			<br>
+			<?php
+		}
+		?>
 		<p>Or add a new genre</p>
 		<input type = "text" name ="new_genre">
 

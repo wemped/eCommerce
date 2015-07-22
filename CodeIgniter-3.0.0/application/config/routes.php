@@ -4,10 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'users';
 
-
-$route['add_album_page'] = 'users/add_album_page';
-$route['add_album'] = 'users/add_album';
-$route['home'] = 'users/home';
+$route['home'] = 'albums';
+$route['add_album_page'] = 'albums/add_album_page';
+$route['add_album'] = 'albums/add_album';
+$route['edit_album_page/(:any)'] = 'albums/edit_album_page/$1';
+$route['edit_album_page/edit_album'] = 'albums/edit_album';
+$route['delete_album_page/(:any)'] = 'albums/delete_album_page/$1';
+$route['delete_album/(:any)'] = 'albums/delete_album/$1';
 
 
 $route['products']  = 'products';
