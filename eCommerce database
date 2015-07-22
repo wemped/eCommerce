@@ -49,12 +49,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `eCommerce`.`albums` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `title` VARCHAR(45) NULL COMMENT '',
-  `ablum_cover` VARCHAR(255) NULL COMMENT '',
+  `album_cover` VARCHAR(255) NULL COMMENT '',
   `description` TEXT NULL COMMENT '',
   `inventory` INT NULL COMMENT '',
   `created_at` DATETIME NULL COMMENT '',
   `updated_at` DATETIME NULL COMMENT '',
   `artist_id` INT NOT NULL COMMENT '',
+  `price` VARCHAR(45) NULL COMMENT '',
+  `sold` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`id`, `artist_id`)  COMMENT '',
   INDEX `fk_albums_artists1_idx` (`artist_id` ASC)  COMMENT '',
   CONSTRAINT `fk_albums_artists1`

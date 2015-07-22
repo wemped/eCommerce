@@ -17,6 +17,8 @@
 			<td>Artist</td>
 			<td>Genre</td>
 			<td>Inventory</td>
+			<td>Price</td>
+			<td>Number sold</td>
 			<td>action</td>
 		</tr>
 		<?php
@@ -30,6 +32,8 @@
 				<td><?= $albums[$i]['artist'] ?></td>
 				<td><?= $albums[$i]['genre'] ?></td>
 				<td><?= $albums[$i]['inventory'] ?></td>
+				<td>$<?= $albums[$i]['price'] ?></td>
+				<td><?= $albums[$i]['sold'] ?></td>
 				<td><a href=<?= '/edit_album_page/'.$albums[$i]['id'] ?>>edit</a>   <a href=<?= '/delete_album_page/'.$albums[$i]['id'] ?>>delete</a></td>
 			</tr>
 			<?php

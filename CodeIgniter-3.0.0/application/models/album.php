@@ -35,9 +35,9 @@ class album extends CI_Model
 
 	public function add_album($album_details)
 	{
-		$query = "INSERT INTO albums (title, description, artist_id, created_at)
-				  VALUES (?,?,?, NOW())";
-		$values = array($album_details['title'],$album_details['description'],$album_details['artist_id']);
+		$query = "INSERT INTO albums (title, description, artist_id, album_cover, inventory, price, sold, created_at)
+				  VALUES (?,?,?,?,?,?,0, NOW())";
+		$values = array($album_details['title'],$album_details['description'],$album_details['artist_id'],$album_details['album_cover'],$album_details['inventory'],$album_details['price']);
 		$this->db->query($query,$values);
 	}
 
@@ -61,7 +61,7 @@ class album extends CI_Model
 
 	public function get_all_albums()
 	{
-		$query = "SELECT albums.title, genres.genre, artists.artist, albums.id, albums.album_cover, albums.inventory, albums.description
+		$query = "SELECT albums.title, genres.genre, artists.artist, albums.id, albums.album_cover, albums.inventory, albums.description, albums.price, albums.sold
 				  FROM albums
 				  JOIN artists
 				  ON albums.artist_id = artists.id
@@ -103,9 +103,9 @@ class album extends CI_Model
 	public function update_album($album_details)
 	{
 		$query = "UPDATE albums
-				  SET title = ?,album_cover = ?, description = ?, artist_id = ?, inventory = ?, updated_at = NOW()
+				  SET title = ?,album_cover = ?, description = ?, artist_id = ?, inventory = ?, price = ?, updated_at = NOW()
 				  WHERE id = '{$album_details['id']}'";
-		$values = array($album_details['title'],$album_details['album_cover'],$album_details['description'],$album_details['artist_id'],$album_details['inventory']);
+		$values = array($album_details['title'],$album_details['album_cover'],$album_details['description'],$album_details['artist_id'],$album_details['inventory'],$album_details['price']);
 		$this->db->query($query, $values);
 	}
 

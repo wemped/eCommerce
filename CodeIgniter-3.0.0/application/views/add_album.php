@@ -6,9 +6,13 @@
 	<?php
 	echo $this->session->flashdata("artist_error");
 	echo $this->session->flashdata("genre_error");
+	echo $this->session->flashdata("inventory_error");
+	echo $this->session->flashdata("price_error");
 	?>
 
 	<form action = "add_album" method = "post">
+		Inventory: <input type = "text" name = "inventory">
+		Price: <input type = "text" name = "price">
 		Album title: <input type = "text" name = "title">
 		<p>Artist</p>
 		<p>Choose from list</p>
@@ -38,7 +42,8 @@
 		?>
 		<p>Or add a new genre</p>
 		<input type = "text" name ="new_genre">
-
+		<p>Add a cover url</p>
+		<input type = "text" name = "album_cover">
 		<p>Add a description</p>
 		<textarea name = "description"></textarea>
 		<br>

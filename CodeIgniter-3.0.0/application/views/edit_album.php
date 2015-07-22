@@ -6,6 +6,8 @@
 	<?php
 	echo $this->session->flashdata("artist_error");
 	echo $this->session->flashdata("genre_error");
+	echo $this->session->flashdata("inventory_error");
+	echo $this->session->flashdata("price_error");
 	var_dump($genre);
 	?>
 	<h1>Edit Album</h1>
@@ -15,6 +17,8 @@
 		Change Inventory <input type = "text" name = "inventory" value = "<?= $album['inventory'] ?>">
 		<br>
 		<br>
+		<p>Current Price: <?= $album['price'] ?></p>
+		Change Price <input type = "text" name = "price" value = <?= $album['price'] ?>>
 		<p>Current Album title: <?= $album['title'] ?></p>
 		Change Album Title <input type = "text" name = "title" value = "<?= $album['title'] ?>">
 		<br>
