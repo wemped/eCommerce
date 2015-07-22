@@ -77,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `eCommerce`.`shipping_addresses` (
   `zip` INT NULL COMMENT '',
   `first_name` VARCHAR(45) NULL COMMENT '',
   `last_name` VARCHAR(45) NULL COMMENT '',
-  `email` VARCHAR(45) NULL COMMENT '',
   `user_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`, `user_id`)  COMMENT '',
   INDEX `fk_shipping_addresses_users1_idx` (`user_id` ASC)  COMMENT '',
@@ -101,7 +100,6 @@ CREATE TABLE IF NOT EXISTS `eCommerce`.`billing_addresses` (
   `zip` INT NULL COMMENT '',
   `first_name` VARCHAR(45) NULL COMMENT '',
   `last_name` VARCHAR(45) NULL COMMENT '',
-  `email` VARCHAR(45) NULL COMMENT '',
   `user_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`, `user_id`)  COMMENT '',
   INDEX `fk_billing_addresses_users1_idx` (`user_id` ASC)  COMMENT '',
@@ -118,6 +116,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eCommerce`.`orders` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `email` VARCHAR(45) NULL COMMENT '',
   `shipping_address_id` INT NOT NULL COMMENT '',
   `billing_address_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`, `shipping_address_id`, `billing_address_id`)  COMMENT '',
