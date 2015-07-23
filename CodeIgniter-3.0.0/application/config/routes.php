@@ -23,6 +23,10 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'users/login';
 $route['register'] = 'users/register';
 
+//checkout
+$route['cart'] = 'orders/details';
+$route['charge'] = 'orders/validate_order';
+
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
