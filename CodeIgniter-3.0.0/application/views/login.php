@@ -16,16 +16,15 @@
     $(document).ready(function(){
         $(".button-collapse").sideNav();
         $('.collapsible').collapsible();
+        $.post('/load_nav',function(res){
+            $('#navbar').html(res);
+        });
     });
 </script>
 </head>
 <body>
-<!--  Temp Nav -->
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo"><span>TuneSphere <i class="material-icons">album</i></span></a>
-        </div>
-    </nav>
+    <div id='navbar'>
+    </div>
     <div class="container">
         <div class="row">
     <!-- Registration -->

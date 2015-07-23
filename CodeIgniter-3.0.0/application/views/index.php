@@ -103,12 +103,12 @@
     <nav>
         <a href="" class=" brand-logo">Website Title</a>
         <ul class='right'>
-            <li><a href="">Login</a></li>
+            <li><a href="/login">Login</a></li>
             <?php
             if(empty($this->session->userdata("cart")))
             {
                 ?>
-                <li><a href="">Shopping Cart (0)</a></li>
+                <li><a href="#">Shopping Cart (0)</a></li>
                 <?php
             }
             else

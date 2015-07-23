@@ -7,6 +7,8 @@ $route['default_controller'] = 'albums';
 //Users - Login and Registration
 $route['login'] = 'users/login';
 $route['register'] = 'users/register';
+$route['logout'] = 'users/logout';
+$route['load_nav'] = 'users/nav_bar';
 
 /*User functionality*/
 $route['album_table_search'] = 'albums/search';

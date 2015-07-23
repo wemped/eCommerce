@@ -1,7 +1,7 @@
 <html>
 <head>
-	<title>Edit Album</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Edit Album</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -28,9 +28,14 @@
     	$(document).ready(function(){
     		$('select').material_select();
     	});
+            $.post('/load_nav',function(res){
+                $('#navbar').html(res);
+            });
     </script>
 </head>
 <body>
+    <div id='navbar'>
+    </div>
 	<?php
 	echo $this->session->flashdata("errors");
 	echo $this->session->flashdata("genre_error");
@@ -56,10 +61,10 @@
 			<br>
 			<p>Current Artist: <?= $artist['artist'] ?></p>
 			<p>Change Artist: Choose from list</p>
-			
+
 			<select name = "artist_list">
 				<option value = <?= $artist['id'] ?>><?= $artist['artist'] ?></option>
-				<?php		
+				<?php
 				for($i = 0 ; $i<count($all_artists) ; $i++)
 				{
 					if($all_artists[$i]['id'] != $artist['id'])
@@ -114,7 +119,7 @@
 					<input type = "checkbox" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?>><?= $all_genres[$i]['genre'] ?>
 					<br>
 					<?php
-					// break;	
+					// break;
 				}
 			}
 			?>

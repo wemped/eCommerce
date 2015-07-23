@@ -7,17 +7,13 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript">
+    </script>
     <style type="text/css">
     .container .row .album-artist {
         margin-top: 1px;
     }
-  /*  .container .row .col{
-        border:dotted 1px;
-    }
-    .container .row {
-        border:dotted 1px red;
-    }
-*/    .container .row img{
+   .container .row img{
         width: 100%;
     }
     .container .row .similar-album p{
@@ -31,11 +27,16 @@
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
+        $.post('/load_nav',function(res){
+            $('#navbar').html(res);
+        });
         $('select').material_select();
     });
     </script>
 </head>
 <body>
+    <div id = 'navbar'>
+    </div>
     <div class='container'>
         <div class='row valign-wrapper'>
             <div class='col s6 album-title'>
