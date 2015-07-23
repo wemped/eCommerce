@@ -5,9 +5,9 @@
 <body>
 	<a href="/add_album_page">Add Album</a>
 	<?php
-	var_dump($albums);
 	echo $this->session->flashdata("delete_success");
 	echo $this->session->flashdata("album_success");
+	var_dump($this->session->userdata('cart'));
 	?>
 	<table>
 		<tr>
@@ -26,9 +26,10 @@
 		{
 			?>
 			<tr>
+
 				<td>PICTURE</td>
 				<td><?= $albums[$i]['id'] ?></td>
-				<td><?= $albums[$i]['title'] ?></td>
+				<td><a href=<?= '/album_page/'. $albums[$i]['id']?>><?= $albums[$i]['title'] ?></a></td>
 				<td><?= $albums[$i]['artist'] ?></td>
 				<td><?= $albums[$i]['genre'] ?></td>
 				<td><?= $albums[$i]['inventory'] ?></td>

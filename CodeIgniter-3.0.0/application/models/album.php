@@ -135,5 +135,27 @@ class album extends CI_Model
 				  WHERE albums.id = '{$id}'";
 		$this->db->query($query);
 	}
+
+	public function get_all_albums_of_genres($genres,$id)
+	{
+		$include = " WHERE genre_id IN (";
+		for($i = 0; $i <count($genres); $i++)
+		{
+			if($i == 0)
+			{
+				$include .= $genres[$i]['id'];
+			}
+			else
+			{
+				$include .= ",".$genres[$i]['id'];
+			}
+		}
+		$include .= ")";
+		$query = "SELECT albums.title, albums.price, albums.album_cover, albums.id
+				  FROM albums 
+				  JOIN albums_has_genres
+				  ON albums.id = albums_has_genres.album_id".$include." AND albums.id != '{$id}' GROUP BY albums_has_genres.album_id";
+		return $this->db->query($query)->result_array();
+	}
 }
  ?>

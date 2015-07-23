@@ -153,6 +153,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `eCommerce`.`albums_has_orders` (
   `album_id` INT NOT NULL COMMENT '',
   `order_id` INT NOT NULL COMMENT '',
+  `quantity` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`album_id`, `order_id`)  COMMENT '',
   INDEX `fk_albums_has_orders_orders1_idx` (`order_id` ASC)  COMMENT '',
   INDEX `fk_albums_has_orders_albums1_idx` (`album_id` ASC)  COMMENT '',

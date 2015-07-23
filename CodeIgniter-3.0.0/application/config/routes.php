@@ -12,6 +12,9 @@ $route['edit_album_page/edit_album'] = 'albums/edit_album';
 $route['delete_album_page/(:any)'] = 'albums/delete_album_page/$1';
 $route['delete_album/(:any)'] = 'albums/delete_album/$1';
 
+$route['album_page/(:any)'] = 'albums/single_album_page/$1';
+$route['album_page/buy_album'] = 'albums/add_to_cart';
+
 
 $route['products']  = 'products';
 $route['add_product'] = 'products/add';

@@ -260,4 +260,24 @@ class Albums extends CI_Controller {
 		$this->session->set_flashdata("delete_success", "You have successfully deleted ".$album['title']);
 		redirect('/home');
 	}
+
+	public function single_album_page($id)
+	{
+		$album = $this->album->get_single_album($id);
+		$artist = $this->album->get_album_artist($id);
+		$genre = $this->album->get_album_genre($id);
+		// var_dump($genre);
+		$albums_has_genres = $this->album->get_all_albums_of_genres($genre,$id);
+		// var_dump($albums_has_genre);
+		// die();
+		$this->load->view('product_display', array("album" => $album, "albums_of_genres" => $albums_has_genres));
+	}
+
+	public function add_to_cart()
+	{
+		$cart = $this->session->userdata('cart');
+		$cart[$this->input->post('album_id')] =  $this->input->post('quantity');
+		$this->session->set_userdata('cart',$cart);
+		redirect('/home');
+	}
 }
