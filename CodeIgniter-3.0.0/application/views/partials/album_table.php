@@ -3,7 +3,7 @@
 $(document).ready(function(){
     $('.page_link').click(function(){
         $('#page_num').val($(this).attr('id'));
-        $.post('/main_table_search',$('#search_form').serialize(),function(res){
+        $.post('/album_table_search',$('#search_form').serialize(),function(res){
             $('.table_partial').html(res);
         });
     });

@@ -12,7 +12,7 @@
         padding: 3% 15%;
     }
     .container .row .small-search{
-        margin-top: 13px;
+        margin-top: 15px;
     }
     </style>
     <script type="text/javascript">
@@ -95,7 +95,7 @@
             <div class='col s3'>
                 <h3> Albums </h3>
             </div>
-            <div class='col s9 hide-on-large-only'>
+            <div class='col s8 offset-s1 hide-on-large-only'>
                 <input type='search' class='small-search search' placeholder='Search'/>
             </div>
         </div>
