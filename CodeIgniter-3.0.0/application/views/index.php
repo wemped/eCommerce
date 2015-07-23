@@ -104,7 +104,20 @@
         <a href="" class=" brand-logo">Website Title</a>
         <ul class='right'>
             <li><a href="">Login</a></li>
-            <li><a href="/cart">Shopping Cart (<?= count($this->session->userdata("cart")) ?>)</a></li>
+            <?php
+            if(empty($this->session->userdata("cart")))
+            {
+                ?>
+                <li><a href="">Shopping Cart (0)</a></li>
+                <?php
+            }
+            else
+            {
+                ?>
+                <li><a href="/cart">Shopping Cart (<?= count($this->session->userdata("cart")) ?>)</a></li>
+                <?php
+            }
+            ?>
         </ul>
         <ul id='slide-out' class='side-nav'>
             <li class='no-padding'>
