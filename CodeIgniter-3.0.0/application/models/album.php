@@ -35,8 +35,8 @@ class album extends CI_Model
                                     OR genres.genre LIKE ?
                                     OR artists.artist LIKE ?)
                                 GROUP BY albums.id
-                                LIMIT 5 OFFSET ?;";
-                $values = array($keyword,$keyword,$keyword,$keyword,$page);
+                                LIMIT ? OFFSET ?;";
+                $values = array($keyword,$keyword,$keyword,$keyword,$albums_per_page,$page);
                 //echo $query;die();
                 return $this->db->query($query,$values)->result_array();
             }
@@ -57,7 +57,7 @@ class album extends CI_Model
                 }else{
                     $genreid = "@genres.id";
                 }
-                $query = "SELECT COUNT(*) as num_albums
+                $query = "SELECT COUNT(DISTINCT albums.id) as num_albums
                                 FROM albums
                                     JOIN albums_has_genres ON albums.id = albums_has_genres.album_id
                                     JOIN genres ON albums_has_genres.genre_id = genres.id
@@ -65,8 +65,7 @@ class album extends CI_Model
                                 WHERE (albums.title LIKE ?
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
-                                    OR artists.artist LIKE ?)
-                                GROUP BY albums.id;";
+                                    OR artists.artist LIKE ?);";
                 $values = array($keyword,$keyword,$keyword,$keyword);
                 return $this->db->query($query,$values)->row_array();
             }
@@ -221,7 +220,7 @@ class album extends CI_Model
 		}
 		$include .= ")";
 		$query = "SELECT albums.title, albums.price, albums.album_cover, albums.id
-				  FROM albums 
+				  FROM albums
 				  JOIN albums_has_genres
 				  ON albums.id = albums_has_genres.album_id".$include." AND albums.id != '{$id}' GROUP BY albums_has_genres.album_id";
 		return $this->db->query($query)->result_array();

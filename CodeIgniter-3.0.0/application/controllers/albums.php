@@ -64,7 +64,7 @@ class Albums extends CI_Controller {
 			$this->session->set_flashdata("price_error", "Price must be a whole number");
 			redirect('/add_album_page');
 		}
-		
+
 		if (empty($this->input->post('new_artist')))
 		{
 			$id = $this->input->post('artist_list');
