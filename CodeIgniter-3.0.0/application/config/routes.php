@@ -12,7 +12,8 @@ $route['register'] = 'users/register';
 $route['album_table_search'] = 'albums/search';
 $route['cart'] = 'orders/details';
 $route['charge'] = 'orders/validate_order';
-
+$route['album_page/(:any)'] = 'albums/single_album_page/$1';
+$route['album_page/buy_album'] = 'albums/add_to_cart';
 
 /*Admin functionality*/
 $route['admin_home'] = 'albums/admin';
