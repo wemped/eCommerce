@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Albums extends CI_Controller {
+	private $albums_per_page_admin = 5;
+	private $albums_per_page = 9;
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Album');
@@ -9,23 +12,35 @@ class Albums extends CI_Controller {
 
 	public function index()
 	{
-		$albums = $this->album->get_all_albums();
-		$artists = $this->album->get_all_artists();
-		$genres = $this->album->get_all_genres();
-		$this->load->view('admin_index', array("albums" => $albums,"artists"=> $artists,"genres" => $genres));
+		$viewdata['artists'] = $this->album->get_all_artists();
+		$viewdata['genres'] = $this->album->get_all_genres();
+		$this->load->view('index', $viewdata);
 	}
 
-	public function search(){
-	    $viewdata['albums'] = $this->Album->search();
-	    $viewdata['num_pages'] = ceil($this->Album->count_search()['num_albums']/5);
-	    //echo "hi!";die();
-	    //var_dump($viewdata);die();
+	public function admin(){
+		$this->load->view('admin_index');
+	}
+
+	public function admin_search(){
+	    $viewdata['albums'] = $this->Album->search($this->albums_per_page_admin);
+	    $viewdata['num_pages'] = ceil($this->Album->count_search()['num_albums']/$this->albums_per_page_admin);
 	    if($this->input->post('page')){
 	        $viewdata['curr_page'] = $this->input->post('page');
 	    }else{
 	        $viewdata['curr_page'] = 1;
 	    }
 	    $this->load->view('partials/admin_table',$viewdata);
+	}
+
+	public function search(){
+	    $viewdata['albums'] = $this->Album->search($this->albums_per_page);
+	    $viewdata['num_pages'] = ceil($this->Album->count_search()['num_albums']/$this->albums_per_page);
+	    if($this->input->post('page')){
+	        $viewdata['curr_page'] = $this->input->post('page');
+	    }else{
+	        $viewdata['curr_page'] = 1;
+	    }
+	    $this->load->view('partials/album_table',$viewdata);
 	}
 
 	public function add_album_page()
@@ -112,7 +127,7 @@ class Albums extends CI_Controller {
 
 		$this->session->set_flashdata("album_success", "You have successfully added a new album! Thank you for your contribution!");
 		//redirect('/home');
-		redirect('/home');
+		redirect('/admin_home');
 	}
 
 	public function edit_album_page($id)
@@ -240,7 +255,7 @@ class Albums extends CI_Controller {
 				$this->album->update_albums_has_genres($album_genre);
 			}
 		}
-		redirect('/home');
+		redirect('/admin_home');
 	}
 
 	public function delete_album_page($id)
@@ -255,6 +270,6 @@ class Albums extends CI_Controller {
 		$this->album->delete_albums_has_genres_of_album($id);
 		$this->album->delete_album($id);
 		$this->session->set_flashdata("delete_success", "You have successfully deleted ".$album['title']);
-		redirect('/home');
+		redirect('/admin_home');
 	}
 }

@@ -2,27 +2,38 @@
 
 class album extends CI_Model
 {
-	public function search(){
+	public function search($albums_per_page){
                 if($this->input->post('keyword')){
                     $keyword  = '%' . $this->input->post('keyword') . '%';
                 }else{
                     $keyword = '%';
                 }
                 if($this->input->post('page')){
-                    $page = ($this->input->post('page') -1) * 5;
+                    $page = ($this->input->post('page') -1) * $albums_per_page;
                 }else{
                     $page = 0;
                 }
+                if($this->input->post('artistid')){
+                    $artistid = $this->input->post('artistid');
+                }else{
+                    $artistid = "@artists.id";
+                }
+                if($this->input->post('genreid')){
+                    $genreid = $this->input->post('genreid');
+                }else{
+                    $genreid = "@genres.id";
+                }
+
                 $query = "SELECT albums.title,albums.description,albums.id,albums.album_cover AS img_src,
                                     albums.inventory,artists.artist,genres.genre
                                 FROM albums
                                     JOIN albums_has_genres ON albums.id = albums_has_genres.album_id
                                     JOIN genres ON albums_has_genres.genre_id = genres.id
                                     JOIN artists ON albums.artist_id = artists.id
-                                WHERE albums.title LIKE ?
+                                WHERE (albums.title LIKE ?
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
-                                    OR artists.artist LIKE ?
+                                    OR artists.artist LIKE ?)
                                 LIMIT 5 OFFSET ?;";
                 $values = array($keyword,$keyword,$keyword,$keyword,$page);
                 //echo $query;die();
@@ -35,17 +46,26 @@ class album extends CI_Model
                 }else{
                     $keyword = '%';
                 }
+                if($this->input->post('artistid')){
+                    $artistid = $this->input->post('artistid');
+                }else{
+                    $artistid = "@artists.id";
+                }
+                if($this->input->post('genreid')){
+                    $genreid = $this->input->post('genreid');
+                }else{
+                    $genreid = "@genres.id";
+                }
                 $query = "SELECT COUNT(*) as num_albums
                                 FROM albums
                                     JOIN albums_has_genres ON albums.id = albums_has_genres.album_id
                                     JOIN genres ON albums_has_genres.genre_id = genres.id
                                     JOIN artists ON albums.artist_id = artists.id
-                                WHERE albums.title LIKE ?
+                                WHERE (albums.title LIKE ?
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
-                                    OR artists.artist LIKE ?;";
+                                    OR artists.artist LIKE ?);";
                 $values = array($keyword,$keyword,$keyword,$keyword);
-                //var_dump($values);
                 return $this->db->query($query,$values)->row_array();
             }
 
