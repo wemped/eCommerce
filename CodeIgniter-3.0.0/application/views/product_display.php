@@ -7,6 +7,7 @@
 	<h3><?= $album['title'] ?></h3>
 	<img src=<?= $album['album_cover'] ?>>
 	<div>
+		<p><?= $artist ?></p>
 		<p><?= $album['description'] ?></p>
 	</div>
 	<div class = 'row'>

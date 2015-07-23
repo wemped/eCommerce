@@ -4,10 +4,9 @@
 </head>
 <body>
 	<?php
-	echo $this->session->flashdata("artist_error");
+	echo $this->session->flashdata("errors");
 	echo $this->session->flashdata("genre_error");
-	echo $this->session->flashdata("inventory_error");
-	echo $this->session->flashdata("price_error");
+	echo $this->session->flashdata("artist_error");
 	?>
 
 	<form action = "add_album" method = "post">
