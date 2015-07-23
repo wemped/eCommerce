@@ -52,19 +52,20 @@ class Albums extends CI_Controller {
 	}
 	public function add_album()
 	{
-		$this->form_validation->set_rules("inventory", "Inventory", "numeric");
+		$this->form_validation->set_rules("title", "Title", "required");
+		$this->form_validation->set_rules("inventory", "Inventory", "required|numeric");
+		$this->form_validation->set_rules("price", "Price", "required|numeric");
 		if($this->form_validation->run() === FALSE)
 		{
-			$this->session->set_flashdata("inventory_error", "Inventory must be a number");
+			$this->view_data['errors'] = validation_errors();
+			$this->session->set_flashdata("errors", validation_errors());
+
+			// $this->session->set_flashdata("title_error", "Title field must be filled out<br>");
+			// $this->session->set_flashdata("inventory_error", "Inventory must be a number<br>");
+			// $this->session->set_flashdata("price_error", "Price must be a number<br>");
 			redirect('/add_album_page');
 		}
-		$this->form_validation->set_rules("price", "Price", "numeric");
-		if($this->form_validation->run() === FALSE)
-		{
-			$this->session->set_flashdata("price_error", "Price must be a whole number");
-			redirect('/add_album_page');
-		}
-		
+
 		if (empty($this->input->post('new_artist')))
 		{
 			$id = $this->input->post('artist_list');
@@ -158,16 +159,16 @@ class Albums extends CI_Controller {
 
 	public function edit_album()
 	{
-		$this->form_validation->set_rules("inventory", "Inventory", "numeric");
+		$this->form_validation->set_rules("title", "Title", "required");
+		$this->form_validation->set_rules("inventory", "Inventory", "required|numeric");
+		$this->form_validation->set_rules("price", "Price", "required|numeric");
 		if($this->form_validation->run() === FALSE)
 		{
-			$this->session->set_flashdata("inventory_error", "Inventory must be a number");
-			redirect('/edit_album_page/'.$this->input->post('album_id'));
-		}
-		$this->form_validation->set_rules("price", "Price", "numeric");
-		if($this->form_validation->run() === FALSE)
-		{
-			$this->session->set_flashdata("price_error", "Price must be a whole number");
+
+			$this->session->set_flashdata("title_error", "Title field must be filled out<br>");
+			$this->session->set_flashdata("inventory_error", "Inventory must be a number<br>");
+			$this->session->set_flashdata("price_error", "Price must be a number<br>");
+
 			redirect('/edit_album_page/'.$this->input->post('album_id'));
 		}
 		if (empty($this->input->post('new_artist')))
@@ -297,14 +298,9 @@ class Albums extends CI_Controller {
 
 	public function single_album_page($id)
 	{
-		$album = $this->album->get_single_album($id);
-		$artist = $this->album->get_album_artist($id);
-		$genre = $this->album->get_album_genre($id);
-		// var_dump($genre);
-		$albums_has_genres = $this->album->get_all_albums_of_genres($genre,$id);
-		// var_dump($albums_has_genre);
-		// die();
-		$this->load->view('product_display', array("album" => $album, "albums_of_genres" => $albums_has_genres));
+		$album = $this->Album->get_single_album($id);
+		$similar_albums = $this->Album->get_similar_albums($id);
+		$this->load->view('product_display', array("album" => $album, "similar_albums" => $similar_albums));
 	}
 
 	public function add_to_cart()
