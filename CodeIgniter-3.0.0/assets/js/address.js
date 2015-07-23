@@ -14,10 +14,17 @@ $(document).ready(function(){
 		$('#bill_state').val($('#ship_state').val());
 		$('#bill_zip').val($('#ship_zip').val());
 		// $('form button.stripe-button-el').removeAttr('disabled');
-		$('#bill_zip').focus();
+		check_input_fields();
 	});
 
-	$('form :input').focus(function(){
+	$('form :input').change(function(){
+		check_input_fields();
+	});
+	$('form :input').keyup(function(){
+		check_input_fields();
+	});
+
+	function check_input_fields(){
 		var complete = true;
 		$('input.req').each(function(){
 			if(complete == true)
@@ -32,7 +39,11 @@ $(document).ready(function(){
 		if(complete == true)
 		{
 			$('form button.stripe-button-el').removeAttr('disabled');
+		}else{
+			var attr_exists = $('form button.stripe-button-el').attr('disabled');
+			if (!attr_exists){
+				$('form button.stripe-button-el').attr('disabled','disabled');
+			}
 		}
-	});
-
+	}
 });

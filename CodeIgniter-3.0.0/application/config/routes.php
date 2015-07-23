@@ -10,6 +10,9 @@ $route['register'] = 'users/register';
 
 /*User functionality*/
 $route['album_table_search'] = 'albums/search';
+$route['cart'] = 'orders/details';
+$route['charge'] = 'orders/validate_order';
+
 
 /*Admin functionality*/
 $route['admin_home'] = 'albums/admin';
@@ -23,11 +26,6 @@ $route['delete_album/(:any)'] = 'albums/delete_album/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
-
-//checkout
-$route['cart'] = 'orders/details';
-$route['charge'] = 'orders/validate_order';
 
 /*
 | -------------------------------------------------------------------------
