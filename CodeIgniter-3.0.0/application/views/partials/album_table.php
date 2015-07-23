@@ -51,7 +51,7 @@ if(sizeof($albums)>0){
  <?php }?>
 
         <div class='col s4 album' data-albumid=<?=$album['id']?>>
-            <a href=<?="album/{$album['id']}"?>>
+            <a href=<?="album_page/{$album['id']}"?>>
                 <img src=<?=$album['img_src']?> />
                 <p class='album-title'><?=$album['title']?></p>
                 <p class='album-artist'><?=$album['artist']?></p>
