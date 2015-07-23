@@ -101,7 +101,7 @@
 </head>
 <body>
     <nav>
-        <a href="" class=" brand-logo">Website Title</a>
+        <a href="" class=" brand-logo"><i class=' medium material-icons'>play_circle_outline</i></a>
         <ul class='right'>
             <li><a href="/login">Login</a></li>
             <?php
