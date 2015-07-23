@@ -7,6 +7,7 @@ class Orders extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Order');
+		$this->load->model('Album');
 	}
 
 	public function details()
@@ -21,6 +22,10 @@ class Orders extends CI_Controller {
 
 	public function validate_order()
 	{
+		if($this->session->userdata('cart') == null)
+		{
+			redirect('/');
+		}
 		$address = $this->input->post();
 		foreach ($address as $key => $input) {
 			if(preg_match('/^ship/', $key, $matches))
@@ -51,8 +56,46 @@ class Orders extends CI_Controller {
 //now create the order and add the address IDs we just created
 		$email = $this->input->post('stripeEmail');
 		$this->Order->complete_order($shipID, $billID, $email);
+		$this->session->unset_userdata('cart');
 		redirect('/');
 	}
 
+	public function summary_table()
+	{
+		$view_data['products'] = $this->Order->order_info();
+		$this->load->view('partials/order_table', $view_data);
+	}
 
+//remove item from cart and reload the orders table or redirect to home if empty
+	public function trash($id)
+	{
+		$cart = $this->session->userdata('cart');
+		unset($cart[$id]);
+		if(count($cart) == 0)
+		{
+			$this->session->unset_userdata('cart');
+			return 'cart empty';
+		}
+		else
+		{
+			$this->session->set_userdata('cart', $cart);
+		}
+		$this->summary_table();
+	}
+
+	public function add_unit($id)
+	{
+		$cart = $this->session->userdata('cart');
+		$cart[$id] += 1;
+		$this->session->set_userdata('cart', $cart);
+		$this->summary_table();
+	}
+
+	public function minus_unit($id)
+	{
+		$cart = $this->session->userdata('cart');
+		$cart[$id] -= 1;
+		$this->session->set_userdata('cart', $cart);
+		$this->summary_table();
+	}
 }

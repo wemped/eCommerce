@@ -1,5 +1,8 @@
 <?php
-var_dump($this->session->userdata());
+if($this->session->userdata('cart') == null)
+{
+    redirect('/');
+}
 ?>
 <html>
 <head>
@@ -13,10 +16,15 @@ var_dump($this->session->userdata());
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script type="text/javascript" src="/assets/js/address.js"></script>
+    <script type="text/javascript" src="/assets/js/cart.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
         $(".button-collapse").sideNav();
         $('.collapsible').collapsible();
+
+        $.get('/orders/summary_table', function(res) {
+            $('div.table').html(res);
+        });
     });
     </script>
 </head>
@@ -28,23 +36,14 @@ var_dump($this->session->userdata());
         </div>
     </nav>
     <div class="container">
-        <table class="striped responsive-table">
-            <thead>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </thead>
-            <tbody>
-<?php
-
-?>
-            </tbody>
-        </table>
+        <div class="table">
+        </div>
+        <a class="btn" href="/">Continue Shopping</a>
+        <h2 class="border">Checkout</h2>
         <div class="row">
             <form action="/charge" method="POST">
                 <div class="col s6">
-                    <h3 class="ship">Shipping Information</h3>
+                    <h4 class="ship">Shipping Info</h4>
                     <div class="row">
                         <div class="input-field col s12">
                             <input class="req" placeholder="First" id="ship_first_name" name="ship_first_name" type="text" value="<?= $this->session->userdata('first_name') ?>">
@@ -90,8 +89,8 @@ var_dump($this->session->userdata());
                     </div>
                 </div>
                 <div class="col s6">
-                    <h3>Billing Information</h3>
-                    <button id="addressmatch" class="btn right" type="button">Same as shipping</button>
+                    <h4>Billing Info</h4>
+                    <button id="addressmatch" class="btn" type="button">Same as shipping</button>
                     <div class="row">
                         <div class="input-field col s12">
                             <input class="req" placeholder="First" id="bill_first_name" name="bill_first_name" type="text" value="<?= $this->session->userdata('first_name') ?>">
@@ -135,7 +134,6 @@ var_dump($this->session->userdata());
                             <label for="bill_zip">Zipcode</label>
                         </div>
                     </div>
-                    <!-- <button class="btn waves-effect waves-light right" type="submit">Pay</button> -->
                 </div>
                 <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button right"
@@ -143,7 +141,7 @@ var_dump($this->session->userdata());
                     data-image="/img/documentation/checkout/marketplace.png"
                     data-name="TuneSphere"
                     data-description="Checkout Payment"
-                    data-amount="2000">
+                    data-amount="<?= $this->session->userdata('order_total')*100 ?>">
                 </script>
             </form>
         </div>
