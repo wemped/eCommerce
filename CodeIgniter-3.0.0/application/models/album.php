@@ -13,16 +13,7 @@ class album extends CI_Model
                 }else{
                     $page = 0;
                 }
-                if($this->input->post('artistid')){
-                    $artistid = $this->input->post('artistid');
-                }else{
-                    $artistid = "@artists.id";
-                }
-                if($this->input->post('genreid')){
-                    $genreid = $this->input->post('genreid');
-                }else{
-                    $genreid = "@genres.id";
-                }
+
 
                 $query = "SELECT albums.title,albums.description,albums.id,albums.sold,albums.album_cover AS img_src,
                                     albums.inventory,artists.artist,genres.genre
@@ -33,11 +24,22 @@ class album extends CI_Model
                                 WHERE (albums.title LIKE ?
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
-                                    OR artists.artist LIKE ?)
-                                GROUP BY albums.id
-                                LIMIT ? OFFSET ?;";
-                $values = array($keyword,$keyword,$keyword,$keyword,$albums_per_page,$page);
-                //echo $query;die();
+                                    OR artists.artist LIKE ?) ";
+                $values = array($keyword,$keyword,$keyword,$keyword);
+
+                $added_sql = '';
+                if($this->input->post('artistid')){
+                    $added_sql .= ' AND (artists.id = ?) ';
+                    $values[] = $this->input->post('artistid');
+                }
+                if($this->input->post('genreid')){
+                    $added_sql .= ' AND (genres.id = ?) ';
+                    $values[] = $this->input->post('genreid');
+                }
+                $query.= $added_sql . " GROUP BY albums.id LIMIT ? OFFSET ?;";
+                $values[] = $albums_per_page;
+                $values[] = $page;
+                //echo $query; die();
                 return $this->db->query($query,$values)->result_array();
             }
 
@@ -143,7 +145,11 @@ class album extends CI_Model
 
 	public function get_single_album($id)
 	{
-		return $this->db->query("SELECT * FROM albums WHERE id = ?", array($id))->row_array();
+		return $this->db->query("SELECT albums.title,albums.description,albums.album_cover AS img_src,
+                                                                             albums.price,albums.inventory,albums.id AS id, artists.artist
+                                                                 FROM albums
+                                                                 JOIN artists ON albums.artist_id=artists.id
+                                                                 WHERE albums.id = ?", array($id))->row_array();
 	}
 
 	public function get_album_artist($id)
@@ -204,26 +210,24 @@ class album extends CI_Model
 		$this->db->query($query);
 	}
 
-	public function get_all_albums_of_genres($genres,$id)
-	{
-		$include = " WHERE genre_id IN (";
-		for($i = 0; $i <count($genres); $i++)
-		{
-			if($i == 0)
-			{
-				$include .= $genres[$i]['id'];
-			}
-			else
-			{
-				$include .= ",".$genres[$i]['id'];
-			}
-		}
-		$include .= ")";
-		$query = "SELECT albums.title, albums.price, albums.album_cover, albums.id
-				  FROM albums
-				  JOIN albums_has_genres
-				  ON albums.id = albums_has_genres.album_id".$include." AND albums.id != '{$id}' GROUP BY albums_has_genres.album_id";
-		return $this->db->query($query)->result_array();
-	}
+            /*Given an album id, this returns every album that has a genre in common, or is by the same artist*/
+            public function get_similar_albums($id){
+                $query = "SELECT albums.title, albums.price, albums.album_cover AS img_src, albums.id, artists.artist
+                                FROM albums
+                                JOIN albums_has_genres ON albums_has_genres.album_id = albums.id
+                                JOIN artists ON artists.id = albums.artist_id
+                                WHERE ((albums_has_genres.genre_id IN
+                                    (SELECT albums_has_genres.genre_id
+                                     FROM albums_has_genres
+                                     JOIN albums ON albums.id = albums_has_genres.album_id
+                                     WHERE albums.id = ?))
+                                OR  (albums.artist_id =
+                                         (SELECT albums.artist_id
+                                          FROM albums
+                                          WHERE albums.id = ?)))
+                                AND NOT(albums.id = ?)
+                                GROUP BY albums.id;";
+                return $this->db->query($query,array($id,$id,$id))->result_array();
+            }
 }
  ?>

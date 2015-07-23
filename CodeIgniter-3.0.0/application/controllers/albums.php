@@ -168,7 +168,7 @@ class Albums extends CI_Controller {
 			$this->session->set_flashdata("title_error", "Title field must be filled out<br>");
 			$this->session->set_flashdata("inventory_error", "Inventory must be a number<br>");
 			$this->session->set_flashdata("price_error", "Price must be a number<br>");
-			
+
 			redirect('/edit_album_page/'.$this->input->post('album_id'));
 		}
 		if (empty($this->input->post('new_artist')))
@@ -298,14 +298,9 @@ class Albums extends CI_Controller {
 
 	public function single_album_page($id)
 	{
-		$album = $this->album->get_single_album($id);
-		$artist = $this->album->get_album_artist($id);
-		$genre = $this->album->get_album_genre($id);
-		// var_dump($genre);
-		$albums_has_genres = $this->album->get_all_albums_of_genres($genre,$id);
-		// var_dump($albums_has_genre);
-		// die();
-		$this->load->view('product_display', array("album" => $album, "albums_of_genres" => $albums_has_genres, "artist" => $artist['artist']));
+		$album = $this->Album->get_single_album($id);
+		$similar_albums = $this->Album->get_similar_albums($id);
+		$this->load->view('product_display', array("album" => $album, "similar_albums" => $similar_albums));
 	}
 
 	public function add_to_cart()

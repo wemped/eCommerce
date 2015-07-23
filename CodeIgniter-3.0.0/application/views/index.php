@@ -14,8 +14,30 @@
     .container .row .small-search{
         margin-top: 15px;
     }
+    .container .row ul li .artist, .container .row ul li .genre{
+        display: block;
+        cursor: pointer;
+    }
+    .container .crumbs{
+        margin: 0px;
+        padding: 0px;
+    }
+
     </style>
     <script type="text/javascript">
+    function change_crumbs(){
+        var crumb_string = '';
+        if($('#form_genre').val()){
+            crumb_string += " > " + $('#form_genre').attr('data-genrename');
+        }
+        if($('#form_artist').val()){
+            crumb_string += " > " + $('#form_artist').attr('data-artistname');
+        }
+        if($('#main_search').val()){
+            crumb_string += " > " + $('#main_search').val();
+        }
+        $('#crumbs').html(crumb_string);
+    }
     $(document).ready(function(){
         $(".button-collapse").sideNav();
         $('.collapsible').collapsible();
@@ -25,6 +47,9 @@
         $('.collapsible').collapsible({
             accordion : false
         });
+        $(".form_input").change(function(){
+            change_crumbs();
+        });
         $(".small-search").keyup(function(){
             $('#main_search').val($(this).val());
             $.post('/album_table_search',$('#search_form').serialize(),function(res){
@@ -32,20 +57,41 @@
             });
         });
         $(".search").keyup(function(){
+            change_crumbs();
             $.post('/album_table_search',$('#search_form').serialize(),function(res){
                 $('#main-content').html(res);
             });
         });
         $(".artist").click(function(){
-            $('#form_artist').val($(this).attr('data-artistid'));
-            console.log($('#form_artist').val());
+            $(this).parent().siblings().removeClass('selected');
+            $(this).parent().siblings().css('background-color','inherit');
+            if ($(this).parent().hasClass('selected')){
+                $(this).parent().css('background-color','inherit');
+                $('#form_artist').attr('data-artistname', '');
+                $('#form_artist').val('').trigger('change');
+            } else{
+                $(this).parent().css('background-color','silver');
+                $('#form_artist').attr('data-artistname', $(this).text());
+                $('#form_artist').val($(this).attr('data-artistid')).trigger('change');
+            }
+            $(this).parent().toggleClass('selected');
             $.post('/album_table_search',$('#search_form').serialize(),function(res){
                 $('#main-content').html(res);
             });
         });
         $(".genre").click(function(){
-            $('#form_genre').val($(this).attr('data-genreid'));
-            console.log($('#form_genre').val());
+            $(this).parent().siblings().removeClass('selected');
+            $(this).parent().siblings().css('background-color','inherit');
+            if ($(this).parent().hasClass('selected')){
+                $(this).parent().css('background-color','inherit');
+                $('#form_genre').attr('data-genrename', '');
+                $('#form_genre').val('').trigger('change');
+            } else{
+                $(this).parent().css('background-color','silver');
+                $('#form_genre').attr('data-genrename', $(this).text());
+                $('#form_genre').val($(this).attr('data-genreid')).trigger('change');
+            }
+            $(this).parent().toggleClass('selected');
             $.post('/album_table_search',$('#search_form').serialize(),function(res){
                 $('#main-content').html(res);
             });
@@ -68,7 +114,7 @@
                         <div class='collapsible-body'>
                             <ul>
 <?php                      foreach ($artists as $artist) { ?>
-                                    <li><a class='artist' data-artistid=<?=$artist['id']?>><?=$artist['artist']?></a></li>
+                                    <li><a class='artist' data-artistid=<?=$artist['id']?>><div><p><?=$artist['artist']?></div></p></a></li>
 <?php                      } ?>
                             </ul>
                         </div>
@@ -99,14 +145,19 @@
                 <input type='search' class='small-search search' placeholder='Search'/>
             </div>
         </div>
+        <div class='row' class='crumbs'>
+            <div class='col 6 offset-s3'>
+                <h5 id='crumbs'></h5>
+            </div>
+        </div>
         <div class='row'>
             <div class='col l3 hide-on-med-and-down card'>
                 <p>
                     <form id="search_form">
-                        <input type='search' class='search' placeholder='Search' id='main_search' name='keyword'/>
-                        <input type='hidden' name='page' value='1' id='page_num'/>
-                        <input type='hidden' name='artistid' id='form_artist' value=''/>
-                        <input type='hidden' name='genreid' id='form_genre' value=''/>
+                        <input type='search' class='search form_input' placeholder='Search' id='main_search' name='keyword'/>
+                        <input type='hidden' class='form_input' name='page' value='1' id='page_num'/>
+                        <input type='hidden' class='form_input' name='artistid' id='form_artist' value=''/>
+                        <input type='hidden' class='form_input' name='genreid' id='form_genre' value=''/>
                     </form>
                     <!-- <h5>Categories</h5> -->
                     <ul class='collapsible z-depth-0' data-collapsible='accordian'>

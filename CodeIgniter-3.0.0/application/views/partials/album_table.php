@@ -26,6 +26,11 @@ $(document).ready(function(){
     }
 </style>
 <div class='row'>
+    <div class='col s12'>
+        <h4 class='light' id='crumbs'></h4>
+    </div>
+</div>
+<div class='row'>
     <div class='col s12 l6 offset-l6'>
         <ul class='pagination right'>
 <?php for ($i = 1; $i<=$num_pages; $i++) {
