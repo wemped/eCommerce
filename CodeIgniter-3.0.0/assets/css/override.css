@@ -39,3 +39,28 @@ div.error p
 	font-size: 0.8em;
 	color: red;
 }
+h3.ship
+{
+	margin-bottom: 79px;
+}
+table
+{
+	margin-bottom: 70px;
+}
+#addressmatch
+{
+	margin-bottom: 25px;
+}
+img.logo
+{
+	height: 63px;
+}
+button.stripe-button-el
+{
+	float: right !important;
+	margin-right: 10px;
+}
+div.input-field select
+{
+	display: block;
+}

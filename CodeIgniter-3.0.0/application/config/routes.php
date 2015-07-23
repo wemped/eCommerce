@@ -25,6 +25,10 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
+//checkout
+$route['cart'] = 'orders/details';
+$route['charge'] = 'orders/validate_order';
+
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
