@@ -56,7 +56,7 @@ if($this->session->flashdata('err')){
                     <td><?=$album['title']?></td>
                     <td><?=$album['artist']?></td>
                     <td><?=$album['inventory']?></td>
-                    <td>to be added..</td>
+                    <td><?= $album['sold'] ?></td>
                     <td>
                         <a href=<?="'edit_album_page/" . $album['id'] . "'"?>>edit</a>
                         <a href=<?="'delete_album_page/" . $album['id'] . "'"?>>remove</a>

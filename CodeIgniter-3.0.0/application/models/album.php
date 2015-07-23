@@ -24,7 +24,7 @@ class album extends CI_Model
                     $genreid = "@genres.id";
                 }
 
-                $query = "SELECT albums.title,albums.description,albums.id,albums.album_cover AS img_src,
+                $query = "SELECT albums.title,albums.description,albums.id,albums.sold,albums.album_cover AS img_src,
                                     albums.inventory,artists.artist,genres.genre
                                 FROM albums
                                     JOIN albums_has_genres ON albums.id = albums_has_genres.album_id

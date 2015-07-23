@@ -58,7 +58,7 @@
         <a href="" class=" brand-logo">Website Title</a>
         <ul class='right'>
             <li><a href="">Login</a></li>
-            <li><a href="">Shopping Cart (2)</a></li>
+            <li><a href="/cart">Shopping Cart (<?= count($this->session->userdata("cart")) ?>)</a></li>
         </ul>
         <ul id='slide-out' class='side-nav'>
             <li class='no-padding'>

@@ -4,11 +4,9 @@
 </head>
 <body>
 	<?php
-	echo $this->session->flashdata("artist_error");
+	echo $this->session->flashdata("errors");
 	echo $this->session->flashdata("genre_error");
-	echo $this->session->flashdata("inventory_error");
-	echo $this->session->flashdata("price_error");
-	var_dump($genre);
+	echo $this->session->flashdata("artist_error");
 	?>
 	<h1>Edit Album</h1>
 
