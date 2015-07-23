@@ -34,6 +34,7 @@ class album extends CI_Model
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
                                     OR artists.artist LIKE ?)
+                                GROUP BY albums.id
                                 LIMIT 5 OFFSET ?;";
                 $values = array($keyword,$keyword,$keyword,$keyword,$page);
                 //echo $query;die();
@@ -64,7 +65,8 @@ class album extends CI_Model
                                 WHERE (albums.title LIKE ?
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
-                                    OR artists.artist LIKE ?);";
+                                    OR artists.artist LIKE ?)
+                                GROUP BY albums.id;";
                 $values = array($keyword,$keyword,$keyword,$keyword);
                 return $this->db->query($query,$values)->row_array();
             }
