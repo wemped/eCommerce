@@ -104,27 +104,29 @@ if($this->session->userdata('userid') == null)
             });
         });
     });
+
 </script>
 </head>
 <body>
     <nav>
         <a href="" class=" brand-logo"><i class=' medium material-icons'>play_circle_outline</i></a>
         <ul class='right'>
-            <li><a href="/login">Login</a></li>
-            <?php
-            if(empty($this->session->userdata("cart")))
-            {
-                ?>
-                <li><a href="#">Shopping Cart (0)</a></li>
-                <?php
-            }
+<?php       if($this->session->userdata('userid') > 1)
+            { ?>
+                <li><a href="/logout">Logout</a></li>
+<?php       }
             else
-            {
-                ?>
+            { ?>
+                <li><a href="/login">Login</a></li>
+<?php       }
+            if(empty($this->session->userdata("cart")))
+            { ?>
+                <li><a href="#">Shopping Cart (0)</a></li>
+<?php       }
+            else
+            { ?>
                 <li><a href="/cart">Shopping Cart (<?= count($this->session->userdata("cart")) ?>)</a></li>
-                <?php
-            }
-            ?>
+<?php       } ?>
         </ul>
         <ul id='slide-out' class='side-nav'>
             <li class='no-padding'>
@@ -154,7 +156,9 @@ if($this->session->userdata('userid') == null)
         </ul>
         <a href='' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-menu'></i></a>
     </nav>
-    <?php /*var_dump($artists);
+    <?php 
+
+    /*var_dump($artists);
     var_dump($genres);*/ ?>
     <div class='container'>
         <div class='row'>

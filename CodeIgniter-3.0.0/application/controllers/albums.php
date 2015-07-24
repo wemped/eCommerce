@@ -30,9 +30,10 @@ class Albums extends CI_Controller {
 	        $viewdata['curr_page'] = 1;
 	    }
 	    $this->load->view('partials/admin_table',$viewdata);
-	}
+            }
 
 	public function search(){
+        	    //var_dump($this->Album->search($this->albums_per_page));
 	    $viewdata['albums'] = $this->Album->search($this->albums_per_page);
 	    $viewdata['num_pages'] = ceil($this->Album->count_search()['num_albums']/$this->albums_per_page);
 	    if($this->input->post('page')){

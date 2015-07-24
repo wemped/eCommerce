@@ -13,8 +13,6 @@ class album extends CI_Model
                 }else{
                     $page = 0;
                 }
-
-
                 $query = "SELECT albums.title,albums.description,albums.id,albums.sold,albums.album_cover AS img_src,
                                     albums.inventory,artists.artist,genres.genre
                                 FROM albums
@@ -39,7 +37,6 @@ class album extends CI_Model
                 $query.= $added_sql . " GROUP BY albums.id LIMIT ? OFFSET ?;";
                 $values[] = $albums_per_page;
                 $values[] = $page;
-                //echo $query; die();
                 return $this->db->query($query,$values)->result_array();
             }
 
@@ -49,16 +46,6 @@ class album extends CI_Model
                 }else{
                     $keyword = '%';
                 }
-                if($this->input->post('artistid')){
-                    $artistid = $this->input->post('artistid');
-                }else{
-                    $artistid = "@artists.id";
-                }
-                if($this->input->post('genreid')){
-                    $genreid = $this->input->post('genreid');
-                }else{
-                    $genreid = "@genres.id";
-                }
                 $query = "SELECT COUNT(DISTINCT albums.id) as num_albums
                                 FROM albums
                                     JOIN albums_has_genres ON albums.id = albums_has_genres.album_id
@@ -67,8 +54,18 @@ class album extends CI_Model
                                 WHERE (albums.title LIKE ?
                                     OR albums.description LIKE ?
                                     OR genres.genre LIKE ?
-                                    OR artists.artist LIKE ?);";
+                                    OR artists.artist LIKE ?) ";
                 $values = array($keyword,$keyword,$keyword,$keyword);
+                $added_sql = '';
+                if($this->input->post('artistid')){
+                    $added_sql .= ' AND (artists.id = ?) ';
+                    $values[] = $this->input->post('artistid');
+                }
+                if($this->input->post('genreid')){
+                    $added_sql .= ' AND (genres.id = ?) ';
+                    $values[] = $this->input->post('genreid');
+                }
+                $query .= $added_sql;
                 return $this->db->query($query,$values)->row_array();
             }
 

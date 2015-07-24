@@ -2,14 +2,27 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Orders extends CI_Controller {
+	private $orders_per_page = 5;
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Order');
-		$this->load->model('Album');
+	}
+	public function admin(){
+	            $this->load->view('admin_orders');
 	}
 
+	public function admin_search(){
+	            $viewdata['orders'] = $this->Order->search($this->orders_per_page);
+	            $viewdata['num_pages'] = ceil($this->Order->count_search()['num_orders']/$this->orders_per_page);
+	            if($this->input->post('page')){
+	                $viewdata['curr_page'] = $this->input->post('page');
+	            }else{
+	                $viewdata['curr_page'] = 1;
+	            }
+	            $this->load->view('partials/admin_orders_table',$viewdata);
+	}
 	public function details()
 	{
 		if($this->session->userdata('userid') > 1)
@@ -77,7 +90,8 @@ class Orders extends CI_Controller {
 		$billID = $this->Order->create_address($bill, 'billing_addresses');
 		//now create the order and add the address IDs we just created
 		$email = $this->input->post('stripeEmail');
-		$this->Order->complete_order($shipID, $billID, $email);
+		$total = $this->session->userdata('order_total');
+		$this->Order->complete_order($shipID, $billID, $email,$total);
 		$this->session->unset_userdata('cart');
 		redirect('/');
 	}
