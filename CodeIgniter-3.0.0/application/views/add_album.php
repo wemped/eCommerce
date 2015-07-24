@@ -124,8 +124,12 @@
 				<div class="row">
 					<div class="col s5">
 						<p>Choose from the list</p>
+						<div class="col s6">
 						<?php
-						for($i = 0; $i < count($genres); $i++)
+						$len = count($genres);
+						$half = ceil($len/2);
+						$counter = 0;
+						for($i = 0; $i < $len; $i++)
 						{
 							?>
 							<p>
@@ -133,8 +137,15 @@
 								<label for="<?= 'genre'.$i ?>"><?= $genres[$i]['genre'] ?></label>
 							</p>
 							<?php
+							$counter ++;
+							if($counter == $half)
+							{ ?>
+						</div>
+						<div class="col s6">
+<?php						}
 						}
 						?>
+						</div>
 					</div>
 					<div class="col s2">
 						<h6 class="center">- Or -</h6>

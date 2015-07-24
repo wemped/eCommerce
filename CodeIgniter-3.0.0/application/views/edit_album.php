@@ -76,9 +76,10 @@
 		<a href="/admin_home" class="right">Return to admin home</a>
 		<h3>Edit Album</h3>
 		<form action = "edit_album" method = "post">
+			<h5>Album Information</h5>
 			<div class = "row">
 				<div class = "input-field col s12">
-					<label class = "active" for = "title">Album Title</label>
+					<label class = "active" for = "title">Album title</label>
 					<input type = "text" id = "title" name = "title" value = "<?= $album['title'] ?>">
 				</div>
 			</div>
@@ -92,10 +93,11 @@
 					<input type = "text" id = "price" name = "price" value = <?= $album['price'] ?>>
 				</div>
 			</div>
+			<h5>Artist</h5>
 			<div class = "row">
-				<div class = "input-field col s6">
-					<label class = "active">Select Artist From List</label>
-					<select name = "artist_list">
+				<div class = "input-field col s5">
+					<label class = "active">Choose from the list</label>
+					<select class="browser-default" name = "artist_list">
 						<option value = <?= $artist['id'] ?>><?= $artist['artist'] ?></option>
 <?php					for($i = 0 ; $i<count($all_artists) ; $i++)
 						{
@@ -106,21 +108,27 @@
 						}?>
 					</select>
 				</div>
-				<div class = "input-field col s6">
-					<label >Or Add A New Artist</label>
+				<div class="col s2 center">
+					<h6>- Or -</h6>
+				</div>
+				<div class = "input-field col s5">
+					<label >Add a new artist</label>
 					<input type = "text" name = "new_artist">
 				</div>
 			</div>
-
+			<h5>Genre</h5>
 			<div class = "row">
 				<!-- <div class = "col s3"> -->
+				<div class="col s5">
 <?php 			$open = TRUE;
+				$len = count($all_genres);
+				$half = ceil($len/2);
 				$counter = 0;
-				for($i = 0; $i < count($all_genres); $i++)
+				for($i = 0; $i < $len; $i++)
 				{
 					if($open == TRUE)
 					{?>
-						<div class = "col s3">
+						<div class = "col s6">
 <?php 					$open = FALSE;
 					}
 					$counter += 1;
@@ -134,29 +142,37 @@
 					}
 					if($valid == 1)
 					{?>
-						<input type = "checkbox" id = "<?= 'genre'.$all_genres[$i]['id']?>" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?> checked = "checked">
-						<label for = "<?= 'genre'.$all_genres[$i]['id']?>"><?= $all_genres[$i]['genre'] ?></label>
-						<br>
+						<p>
+							<input type = "checkbox" id = "<?= 'genre'.$all_genres[$i]['id']?>" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?> checked = "checked">
+							<label for = "<?= 'genre'.$all_genres[$i]['id']?>"><?= $all_genres[$i]['genre'] ?></label>
+						</p>
 <?php 				}
 					else
 					{?>
-						<input type = "checkbox" id = "<?= 'genre'.$all_genres[$i]['id']?>" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?>>
-						<label for = "<?= 'genre'.$all_genres[$i]['id']?>"><?= $all_genres[$i]['genre'] ?></label>
-						<br>
+						<p>
+							<input type = "checkbox" id = "<?= 'genre'.$all_genres[$i]['id']?>" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?>>
+							<label for = "<?= 'genre'.$all_genres[$i]['id']?>"><?= $all_genres[$i]['genre'] ?></label>
+						</p>
 <?php 				}
-					if($counter%6 == 0)
+					if($counter == $half)
 					{?>
 						</div>
 <?php 					$open = TRUE;
 					}
 				}?>
+						</div>
+					</div>
 				<!-- </div> -->
-			</div>
-			<div class = "row">
-				<div class = "input-field col s12">
-					<label>Or Add A New Genre</label>
+				<div class="col s2 center">
+					<h6>- Or -</h6>
+				</div>
+				<div class = "input-field col s5">
+					<label>Add a new genre</label>
 					<input type = "text" name = "new_genre">
 				</div>
+			</div>
+			<div class = "row">
+
 			</div>
 			<div class = "row">
 				<div class = " cover_art col s3">
@@ -164,7 +180,7 @@
 					<img src=<?= $album['img_src'] ?> class = "album_cover">
 				</div>
 				<div class = "col s9">
-					<label class = "active" for = "album_cover">Album Cover URL</label>
+					<label class = "active" for = "album_cover">Cover art (URL)</label>
 					<input id = "album_cover" type = "text" name = "album_cover" value = "<?= $album['img_src'] ?>">
 					<label class = "active" for = "description">Description</label>
 					<textarea id = "description" name = "description" ><?= $album['description'] ?></textarea>
