@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Admin | eCommerce</title>
+    <title>Admin Orders | eCommerce</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
@@ -24,11 +24,11 @@
     $(document).ready(function(){
         $(".button-collapse").sideNav();
         $('.collapsible').collapsible();
-        $.post('/admin_table_search',function(res){
+        $.post('/admin_order_search',function(res){
             $('.table_partial').html(res);
         });
         $("#search").keyup(function(){
-            $.post('/admin_table_search',$('#search_form').serialize(),function(res){
+            $.post('/admin_order_search',$('#search_form').serialize(),function(res){
                 $('.table_partial').html(res);
             });
         });
@@ -38,15 +38,10 @@
 <body>
     <nav>
         <ul class='left'>
-            <li><a href="/admin_orders">Orders</a></li>
+            <li><a href="/admin_home">Albums</a></li>
         </ul>
         <ul class='right'>
-<?php  if($this->session->userdata('userid')){ ?>
-                <li><a href="/logout">Logout</a></li>
-<?php  }else{ ?>
-                <li><a href="/login">Login</a></li>
-<?php  } ?>
-
+            <li><a href="">Logout</a></li>
         </ul>
         <ul id='slide-out' class='side-nav'>
             <li class='no-padding'>
@@ -55,7 +50,7 @@
                         <a class='collapsible-header active'>Categories<i class="mdi-navigation-arrow-drop-down"></i></a>
                         <div class='collapsible-body'>
                             <ul>
-                                <li><a>Orders</a></li>
+                                <li><a>Albums</a></li>
                             </ul>
                         </div>
                     </li>
@@ -67,7 +62,7 @@
     <div class='container'>
         <div class='row'>
             <div class='col s12 l3'>
-                <h3> Albums </h3>
+                <h3> Orders </h3>
             </div>
             <div class='col s6 l6 search'>
                 <form method='post' id="search_form">
@@ -75,14 +70,10 @@
                     <input type='hidden' name='page' value='1' id='page_num'/>
                 </form>
             </div>
-            <div class='col s6 l3'>
-                <a href='/add_album_page'><button class='btn'>Add Album</button></a>
-            </div>
             <div class='table_partial'>
             </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>
