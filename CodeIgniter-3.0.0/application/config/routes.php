@@ -32,6 +32,7 @@ $route['delete_album_page/(:any)'] = 'albums/delete_album_page/$1';
 $route['delete_album/(:any)'] = 'albums/delete_album/$1';
 $route['admin_orders'] = 'orders/admin';
 $route['admin_order_search'] = 'orders/admin_search';
+$route['admin/edit_status/(:any)/(:any)'] = 'orders/admin_edit_status/$1/$2';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
