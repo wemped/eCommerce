@@ -22,7 +22,7 @@ class User extends CI_Model {
 		}
 		else
 		{
-			$query = "SELECT id, first_name, last_name, email, admin, password FROM users WHERE email = ?";
+			$query = "SELECT id, first_name, last_name, email, user_level, password FROM users WHERE email = ?";
 			$value = array($this->input->post('email'));
 			$user = $this->db->query($query, $value)->row_array();
 			if($user)
@@ -34,7 +34,7 @@ class User extends CI_Model {
 					$this->session->set_userdata('last_name', $user['last_name']);
 					$this->session->set_userdata('userid', $user['id']);
 					$this->session->set_userdata('email', $user['email']);
-					if($user['admin'] == 1)
+					if($user['user_level'] == 1)
 					{
 						$this->session->set_userdata('admin', true);
 					}

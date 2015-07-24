@@ -12,7 +12,29 @@ class Orders extends CI_Controller {
 
 	public function details()
 	{
-		$this->load->view('cart');
+		if($this->session->userdata('userid') > 1)
+		{
+			$view_data['ship'] = $this->Order->fetch_address('shipping_addresses');
+			$view_data['bill'] = $this->Order->fetch_address('billing_addresses');
+		}
+		else
+		{
+			$view_data['ship'] = array('address' => "",
+									   'unit' => "",
+									   'city' => "",
+									   'state' => "",
+									   'zip' => "",
+									   'first_name' => "",
+									   'last_name' => "");
+			$view_data['bill'] = array('address' => "",
+									   'unit' => "",
+									   'city' => "",
+									   'state' => "",
+									   'zip' => "",
+									   'first_name' => "",
+									   'last_name' => "");
+		}
+		$this->load->view('cart', $view_data);
 	}
 
 	public function states()
@@ -41,19 +63,19 @@ class Orders extends CI_Controller {
 				$bill[$new_key] = $input;
 			}
 		}
-//check if the provided addresses pass our validation
-//if they do NOT these functions will pass back a true
+		//check if the provided addresses pass our validation
+		//if they do NOT these functions will pass back a true
 		$ship_check = $this->Order->is_valid_address($ship, 'ship');
 		$bill_check = $this->Order->is_valid_address($bill, 'bill');
-//Check if either one of these failed, and if it did redirect back to the cart page
+		//Check if either one of these failed, and if it did redirect back to the cart page
 		if($ship_check || $bill_check)
 		{
 			redirect('/cart');
 		}
-//address valdation passed, now create the addresses and the order
+		//address valdation passed, now create the addresses and the order
 		$shipID = $this->Order->create_address($ship, 'shipping_addresses');
 		$billID = $this->Order->create_address($bill, 'billing_addresses');
-//now create the order and add the address IDs we just created
+		//now create the order and add the address IDs we just created
 		$email = $this->input->post('stripeEmail');
 		$this->Order->complete_order($shipID, $billID, $email);
 		$this->session->unset_userdata('cart');
@@ -66,7 +88,7 @@ class Orders extends CI_Controller {
 		$this->load->view('partials/order_table', $view_data);
 	}
 
-//remove item from cart and reload the orders table or redirect to home if empty
+	//remove item from cart and reload the orders table or redirect to home if empty
 	public function trash($id)
 	{
 		$cart = $this->session->userdata('cart');

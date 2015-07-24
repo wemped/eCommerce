@@ -48,6 +48,15 @@ class Order extends CI_Model {
 		return false;
 	}
 
+	public function fetch_address($table)
+	{
+		$user = $this->session->userdata('userid');
+		$query = "SELECT * FROM ".$table."
+				  WHERE user_id = ".$user."
+				  ORDER BY created_at DESC LIMIT 1";
+		return $this->db->query($query)->row_array();
+	}
+
 	public function create_address($address, $table)
 	{
 		if($this->session->userdata('userid')){
@@ -55,7 +64,7 @@ class Order extends CI_Model {
 		}	else {
 			$userid = 1; //guest user
 		}
-		$query = "INSERT INTO ".$table." (address, unit, city, state, zip, first_name, last_name, user_id) VALUES (?,?,?,?,?,?,?,?)";
+		$query = "INSERT INTO ".$table." (address, unit, city, state, zip, first_name, last_name, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?, NOW(), NOW())";
 		$values = array($address['address'], $address['address2'], $address['city'], $address['state'], $address['zip'], $address['first_name'], $address['last_name'], $userid);
 		return $this->db->insert_id($this->db->query($query, $values));
 	}

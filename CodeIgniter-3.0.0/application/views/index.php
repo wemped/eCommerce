@@ -1,3 +1,10 @@
+<?php
+if($this->session->userdata('userid') == null)
+{
+    //Guest User
+    $this->session->set_userdata('userid', 1);
+}
+?>
 <html>
 <head>
     <title>Home | eCommerce</title>
