@@ -80,6 +80,8 @@ CREATE TABLE IF NOT EXISTS `eCommerce`.`shipping_addresses` (
   `first_name` VARCHAR(45) NULL COMMENT '',
   `last_name` VARCHAR(45) NULL COMMENT '',
   `user_id` INT NOT NULL COMMENT '',
+  `created_at` DATETIME NULL COMMENT '',
+  `updated_at` DATETIME NULL COMMENT '',
   PRIMARY KEY (`id`, `user_id`)  COMMENT '',
   INDEX `fk_shipping_addresses_users1_idx` (`user_id` ASC)  COMMENT '',
   CONSTRAINT `fk_shipping_addresses_users1`
@@ -103,6 +105,8 @@ CREATE TABLE IF NOT EXISTS `eCommerce`.`billing_addresses` (
   `first_name` VARCHAR(45) NULL COMMENT '',
   `last_name` VARCHAR(45) NULL COMMENT '',
   `user_id` INT NOT NULL COMMENT '',
+  `created_at` DATETIME NULL COMMENT '',
+  `updated_at` DATETIME NULL COMMENT '',
   PRIMARY KEY (`id`, `user_id`)  COMMENT '',
   INDEX `fk_billing_addresses_users1_idx` (`user_id` ASC)  COMMENT '',
   CONSTRAINT `fk_billing_addresses_users1`
