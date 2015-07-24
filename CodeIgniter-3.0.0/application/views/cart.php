@@ -37,11 +37,20 @@ if($this->session->userdata('cart') == null)
 <body>
 <!--  Temp Nav -->
     <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo"><img class="logo" src="/assets/img/logo.png"></a>
-        </div>
+        <a href="/" class=" brand-logo"><img class="logo" src="/assets/img/logo.png"></a>
+        <ul class='right'>
+<?php if($this->session->userdata('admin') == 1){ ?>
+            <li><a href="/admin_home">Admin Home</a></li>
+<?php } ?>
+<?php  if($this->session->userdata('userid') > 0){ ?>
+            <li><a href="/logout">Logout</a></li>
+<?php  }else{ ?>
+            <li><a href="/login">Login</a></li>
+<?php  } ?>
+        </ul>
     </nav>
     <div class="container">
+        <a href="/" class="right">Back to shopping</a>
         <div class="table">
         </div>
         <a class="btn" href="/">Continue Shopping</a>

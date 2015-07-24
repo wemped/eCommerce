@@ -14,6 +14,7 @@ if($this->session->userdata('userid') == null)
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/override.css">
     <style type="text/css">
     .container .row .card .collapsible-body ul>li {
         padding: 3% 15%;
@@ -112,7 +113,7 @@ if($this->session->userdata('userid') == null)
 </head>
 <body>
     <nav>
-        <a href="" class=" brand-logo"><i class=' medium material-icons'>play_circle_outline</i></a>
+        <a href="" class=" brand-logo"><img class="logo" src="/assets/img/logo.png"></a>
         <ul class='right'>
 <?php       if($this->session->userdata('admin') == 1){ ?>
                 <li><a href="/admin_home">Admin Home</a></li>

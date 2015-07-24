@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	$('form button.stripe-button-el').attr('disabled', 'disabled');
 
+	check_input_fields();
+
 	$('#addressmatch').click(function(){
 		$('#bill_first_name').val($('#ship_first_name').val());
 		$('#bill_last_name').val($('#ship_last_name').val());
