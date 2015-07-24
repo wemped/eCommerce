@@ -27,6 +27,9 @@ class Orders extends CI_Controller {
 	            }
 	            $this->load->view('partials/admin_orders_table',$viewdata);
 	}
+	public function admin_edit_status($order_id,$status){
+		$this->Order->edit_state($order_id,$status);
+	}
 	public function details()
 	{
 		if($this->session->userdata('userid') > 1)

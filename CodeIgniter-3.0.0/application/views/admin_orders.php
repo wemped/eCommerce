@@ -19,6 +19,9 @@
        margin-top: 22px;
        margin-left: 5%;
     }
+    .container .row #status{
+        margin-top: 21px;
+    }
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
@@ -28,6 +31,12 @@
             $('.table_partial').html(res);
         });
         $("#search").keyup(function(){
+            $.post('/admin_order_search',$('#search_form').serialize(),function(res){
+                $('.table_partial').html(res);
+            });
+        });
+        $('#status').change(function(){
+            $('#form_status').val($(this).val());
             $.post('/admin_order_search',$('#search_form').serialize(),function(res){
                 $('.table_partial').html(res);
             });
@@ -68,7 +77,17 @@
                 <form method='post' id="search_form">
                     <input type='search' name='keyword' placeholder="Search" id='search'/>
                     <input type='hidden' name='page' value='1' id='page_num'/>
+                    <input type='hidden' name='status' value='' id='form_status' />
                 </form>
+            </div>
+            <div class='col s6 l3'>
+                <select class='browser-default' id='status'>
+                    <option value='' selected='selected'>Show All</option>
+                    <option value='p'>Process</option>
+                    <option value='s'>Shipped</option>
+                    <option value='c'>Complete</option>
+                    <option value='d'>Cancled</option>
+                </select>
             </div>
             <div class='table_partial'>
             </div>

@@ -1,11 +1,23 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+    $('select').material_select();
     $('.page_link').click(function(){
         $('#page_num').val($(this).attr('id'));
         $.post('/admin_orders_search',$('#search_form').serialize(),function(res){
             $('.table_partial').html(res);
         });
+    });
+    $('.status').change(function(){
+        var status = $(this).find(":selected").text();
+        var status_key = $(this).find(":selected").val();
+        var orderid = $(this).data('orderid');
+        var conf = confirm("Are you sure you want to set order " + orderid + "'s status to " + status + "?" );
+        if(conf){
+            console.log(orderid);
+            console.log(status_key);
+            $.post('/admin/edit_status/' + orderid + "/" + status_key);
+        }
     });
 });
 </script>
@@ -51,7 +63,30 @@ if($this->session->flashdata('err')){
                     <td><?=$order['created_at']?></td>
                     <td><?=$order['unit'] . ' ' . $order['address'] . ' ' . $order['city'] . ' ' . $order['state'] . ' ' . $order['zip'] ?></td>
                     <td><?=$order['total']?></td>
-                    <td><?= $order['status'] ?></td>
+                    <td>
+                        <select class='browser-default status' data-orderid=<?=$order['id']?>>
+<?php                   if($order['status'] == 'p'){ ?>
+                                <option value='p' selected='selected'>Processing</option>
+<?php                   }else{ ?>
+                                <option value='p'>Processing</option>
+<?php                   }?>
+<?php                   if($order['status'] == 's'){ ?>
+                              <option value='s' selected='selected'>Shipped</option>
+<?php                   }else{ ?>
+                              <option value='s'>Shipped</option>
+<?php                   }?>
+<?php                   if($order['status'] == 'c'){ ?>
+                                <option value='c' selected='selected'>Complete</option>
+<?php                   }else{ ?>
+                                <option value='c'>Complete</option>
+<?php                   }?>
+<?php                   if($order['status'] == 'd'){ ?>
+                                <option value='d' selected='selected'>Cancled</option>
+<?php                   }else{ ?>
+                                <option value='d'>Canceled</option>
+<?php                   }?>
+                        </select>
+                    </td>
                 </tr>
 <?php   } ?>
         </tbody>
