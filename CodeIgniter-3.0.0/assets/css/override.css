@@ -95,3 +95,6 @@ h3
 {
 	color: #F1002A;
 }
+.pagination li.active {
+    background-color: #00abe8;
+}
