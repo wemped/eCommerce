@@ -4,7 +4,7 @@ $(document).ready(function(){
     $('.page_link').click(function(){
         $('#page_num').val($(this).attr('id'));
         $.post('/album_table_search',$('#search_form').serialize(),function(res){
-            $('.table_partial').html(res);
+            $('#main-content').html(res);
         });
     });
 });
