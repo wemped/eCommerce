@@ -14,9 +14,11 @@ $(document).ready(function(){
         var orderid = $(this).data('orderid');
         var conf = confirm("Are you sure you want to set order " + orderid + "'s status to " + status + "?" );
         if(conf){
-            console.log(orderid);
-            console.log(status_key);
             $.post('/admin/edit_status/' + orderid + "/" + status_key);
+        }else{
+            $.post('/admin_order_search',function(res){
+                $('.table_partial').html(res);
+            });
         }
     });
 });
