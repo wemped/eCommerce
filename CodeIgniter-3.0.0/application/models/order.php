@@ -121,6 +121,7 @@ class Order extends CI_Model {
 		$albums = $this->session->userdata('cart');
 		foreach ($albums as $id => $quantity) {
 			$albumdata = array($id, $orderID, $quantity);
+                                   $this->db->query("UPDATE albums SET inventory = inventory - ? WHERE id = ?",array($quantity,$id));
 			$this->db->query('INSERT INTO albums_has_orders (album_id, order_id, quantity) VALUES (?,?,?)', $albumdata);
 		}
 	}
