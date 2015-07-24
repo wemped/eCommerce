@@ -23,6 +23,15 @@
     	height: 200px;
     	width: 200px;
     }
+    #description{
+    	height: 150px;
+    }
+    .btn{
+    	background-color: #EE6E73;
+    }
+    #edit_album_title{
+    	color: #2BBBAD;
+    }
     </style>
     <script type="text/javascript">
     	$(document).ready(function(){
@@ -42,102 +51,109 @@
 	echo $this->session->flashdata("artist_error");
 	?>
 	<div class = "container">
-		<h1>Edit Album</h1>
+		<h3 id = "edit_album_title">Edit Album</h3>
 
 		<form action = "edit_album" method = "post">
 			<div class = "row">
-				<div class = "input-field col s1">
+				<div class = "input-field col s12">
+					<label class = "active" for = "title">Album Title</label>
+					<input type = "text" id = "title" name = "title" value = "<?= $album['title'] ?>">
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "input-field col s6">
 					<label class = "active" for = "inventory">Inventory</label>
 					<input type = "text" id = "inventory" name = "inventory" value = "<?= $album['inventory'] ?>">
 				</div>
+				<div class = "input-field col s6">
+					<label class = "active" for "price">Price</label>
+					<input type = "text" id = "price" name = "price" value = <?= $album['price'] ?>>
+				</div>
 			</div>
-			<br>
-			<br>
-			<p>Current Price: <?= $album['price'] ?></p>
-			Change Price <input type = "text" name = "price" value = <?= $album['price'] ?>>
-			<p>Current Album title: <?= $album['title'] ?></p>
-			Change Album Title <input type = "text" name = "title" value = "<?= $album['title'] ?>">
-			<br>
-			<br>
-			<p>Current Artist: <?= $artist['artist'] ?></p>
-			<p>Change Artist: Choose from list</p>
+			<div class = "row">
+				<div class = "input-field col s6">
+					<label class = "active">Select Artist From List</label>
+					<select name = "artist_list">
+						<option value = <?= $artist['id'] ?>><?= $artist['artist'] ?></option>
+<?php					for($i = 0 ; $i<count($all_artists) ; $i++)
+						{
+							if($all_artists[$i]['id'] != $artist['id'])
+							{?>
+							<option value = <?= $all_artists[$i]['id'] ?>><?= $all_artists[$i]['artist'] ?></option>
+<?php 						}
+						}?>
+					</select>
+				</div>
+				<div class = "input-field col s6">
+					<label >Or Add A New Artist</label>
+					<input type = "text" name = "new_artist">
+				</div>
+			</div>
 
-			<select name = "artist_list">
-				<option value = <?= $artist['id'] ?>><?= $artist['artist'] ?></option>
-				<?php
-				for($i = 0 ; $i<count($all_artists) ; $i++)
+			<div class = "row">
+				<!-- <div class = "col s3"> -->
+<?php 			$open = TRUE;
+				$counter = 0;
+				for($i = 0; $i < count($all_genres); $i++)
 				{
-					if($all_artists[$i]['id'] != $artist['id'])
-					{
-					?>
-					<option value = <?= $all_artists[$i]['id'] ?>><?= $all_artists[$i]['artist'] ?></option>
-					<?php
+					if($open == TRUE)
+					{?>
+						<div class = "col s3">
+<?php 					$open = FALSE;
 					}
-				}
-				?>
-			</select>
-			<p>Or add a new artist</p>
-			<input type = "text" name ="new_artist">
-			<br>
-			<br>
-
-
-			<p>Current Genre(s):</p>
-			<ul>
-				<?php
-				for($i = 0; $i < count($genre); $i++)
-				{
-					?>
-					<li><?= $genre[$i]['genre'] ?></li>
-					<?php
-				}
-				?>
-			</ul>
-			<p>Change Genre: Choose from the list</p>
-			<?php
-			for($i = 0; $i < count($all_genres); $i++)
-			{
-				$valid = 0;
-				for($j = 0; $j < count($genre); $j++)
-				{
-					if($all_genres[$i]['id'] == $genre[$j]['id'])
+					$counter += 1;				
+					$valid = 0;
+					for($j = 0; $j < count($genre); $j++)
 					{
-						$valid = 1;
+						if($all_genres[$i]['id'] == $genre[$j]['id'])
+						{
+							$valid = 1;
+						}
 					}
-				}
-				if($valid == 1)
-				{
-					?>
-					<input type = "checkbox" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?> checked><?= $all_genres[$i]['genre'] ?>
-					<br>
-					<?php
-					// break;
-				}
-				else
-				{
-					?>
-					<input type = "checkbox" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?>><?= $all_genres[$i]['genre'] ?>
-					<br>
-					<?php
-					// break;
-				}
-			}
-			?>
-
-			<p>Or add a new genre</p>
-			<input type = "text" name = "new_genre">
-			<br>
-			<br>
-			<p>Change the album image url</p>
-			<img src=<?= $album['img_src'] ?> class = "album_cover">
-			<input type = "text" name = "album_cover" value = "<?= $album['img_src'] ?>">
-
-			<p>Change description</p>
-			<textarea name = "description" ><?= $album['description'] ?></textarea>
-			<br>
+					if($valid == 1)
+					{?>
+						<input type = "checkbox" id = "<?= 'genre'.$all_genres[$i]['id']?>" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?> checked = "checked">
+						<label for = "<?= 'genre'.$all_genres[$i]['id']?>"><?= $all_genres[$i]['genre'] ?></label>
+						<br>
+<?php 				}
+					else
+					{?>
+						<input type = "checkbox" id = "<?= 'genre'.$all_genres[$i]['id']?>" name = <?= 'genre'.$i ?> value = <?= $all_genres[$i]['id'] ?>>
+						<label for = "<?= 'genre'.$all_genres[$i]['id']?>"><?= $all_genres[$i]['genre'] ?></label>
+						<br>
+<?php 				}
+					if($counter%6 == 0)
+					{?>
+						</div>
+<?php 					$open = TRUE;
+					}
+				}?>
+				<!-- </div> -->
+			</div>
+			<div class = "row">
+				<div class = "input-field col s12">
+					<label>Or Add A New Genre</label>
+					<input type = "text" name = "new_genre">
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col s3">
+					<p>Current Album Cover</p>
+					<img src=<?= $album['img_src'] ?> class = "album_cover">
+				</div>
+				<div class = "col s9">
+					<label class = "active" for = "album_cover">Album Cover URL</label>
+					<input id = "album_cover" type = "text" name = "album_cover" value = "<?= $album['img_src'] ?>">
+					<label class = "active" for = "description">Description</label>
+					<textarea id = "description" name = "description" ><?= $album['description'] ?></textarea>
+				</div>
+			</div>
 			<input type = "hidden" name = "album_id" value = <?= $album['id'] ?>>
-			<br>
-			<input type = "submit" value = " Save Changes">
+			<div class = "row">
+				<div class = "col s2 offset-s10">
+					<input class = "btn" type = "submit" value = " Save Changes">
+				</div>
+			</div>
 		</form>
 	</div>
 </body>
