@@ -21,18 +21,24 @@ class Order extends CI_Model {
 		}else{
 		    $page = 0;
 		}
+                        if($this->input->post('status')){
+                            $state = $this->input->post('status');
+                        }else{
+                            $state = '%';
+                        }
 		$query = "SELECT orders.id, orders.created_at,orders.total,orders.state AS status,
                                                     billing_addresses.unit,billing_addresses.address,billing_addresses.city,
                                                     billing_addresses.state,billing_addresses.zip,users.first_name,users.last_name
                                         FROM orders
                                         JOIN billing_addresses ON orders.billing_address_id = billing_addresses.id
                                         JOIN users ON billing_addresses.user_id = users.id
-                                        WHERE orders.id LIKE ?
+                                        WHERE (orders.id LIKE ?
                                             OR CONCAT(users.first_name, ' ', users.last_name) LIKE ?
-                                            OR CONCAT(billing_addresses.unit, ' ', billing_addresses.address, ' ', billing_addresses.city, ' ', billing_addresses.state, ' ', billing_addresses.zip) LIKE ?
+                                            OR CONCAT(billing_addresses.unit, ' ', billing_addresses.address, ' ', billing_addresses.city, ' ', billing_addresses.state, ' ', billing_addresses.zip) LIKE ?)
+                                        AND orders.state LIKE ?
                                         GROUP BY orders.id
                                         LIMIT ? OFFSET ?";
-                        $values = array($keyword,$keyword,$keyword,$orders_per_page,$page);
+                        $values = array($keyword,$keyword,$keyword,$state,$orders_per_page,$page);
                         return $this->db->query($query,$values)->result_array();
 	}
 
@@ -42,15 +48,26 @@ class Order extends CI_Model {
                 }else{
                     $keyword = '%';
                 }
+                if($this->input->post('status')){
+                    $state = $this->input->post('status');
+                }else{
+                    $state = '%';
+                }
                 $query ="SELECT COUNT(DISTINCT orders.id) as num_orders
                                 FROM orders
                                 JOIN billing_addresses ON orders.billing_address_id = billing_addresses.id
                                 JOIN users ON billing_addresses.user_id = users.id
-                                WHERE orders.id LIKE ?
+                                WHERE (orders.id LIKE ?
                                     OR CONCAT(users.first_name, ' ', users.last_name) LIKE ?
-                                    OR CONCAT(billing_addresses.unit, ' ', billing_addresses.address, ' ', billing_addresses.city, ' ', billing_addresses.state, ' ', billing_addresses.zip) LIKE ?;";
-                $values = array($keyword,$keyword,$keyword);
+                                    OR CONCAT(billing_addresses.unit, ' ', billing_addresses.address, ' ', billing_addresses.city, ' ', billing_addresses.state, ' ', billing_addresses.zip) LIKE ?)
+                                AND orders.state LIKE ?;";
+                $values = array($keyword,$keyword,$keyword,$state);
                 return $this->db->query($query,$values)->row_array();
+            }
+
+            public function edit_state($id,$state){
+                return $this->db->query("UPDATE orders SET orders.state = ?
+                                                          WHERE orders.id = ?;",array($state,$id));
             }
 
 	public function order_info()
@@ -116,7 +133,7 @@ class Order extends CI_Model {
 	public function complete_order($ship, $bill, $email,$total)
 	{
 		$query = "INSERT INTO orders (email, shipping_address_id, billing_address_id,created_at,total,state) VALUES (?,?,?,NOW(),?,?)";
-		$values = array($email, $ship, $bill,$total,'Order in process');
+		$values = array($email, $ship, $bill,$total,'p');
 		$orderID = $this->db->insert_id($this->db->query($query, $values));
 		$albums = $this->session->userdata('cart');
 		foreach ($albums as $id => $quantity) {
