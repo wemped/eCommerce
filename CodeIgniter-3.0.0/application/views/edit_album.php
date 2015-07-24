@@ -24,7 +24,13 @@
     	width: 200px;
     }
     #description{
-    	height: 100px;
+    	height: 150px;
+    }
+    .btn{
+    	background-color: #EE6E73;
+    }
+    #edit_album_title{
+    	color: #2BBBAD;
     }
     </style>
     <script type="text/javascript">
@@ -45,7 +51,7 @@
 	echo $this->session->flashdata("artist_error");
 	?>
 	<div class = "container">
-		<h3>Edit Album</h3>
+		<h3 id = "edit_album_title">Edit Album</h3>
 
 		<form action = "edit_album" method = "post">
 			<div class = "row">
@@ -145,7 +151,7 @@
 			<input type = "hidden" name = "album_id" value = <?= $album['id'] ?>>
 			<div class = "row">
 				<div class = "col s2 offset-s10">
-					<input type = "submit" value = " Save Changes">
+					<input class = "btn" type = "submit" value = " Save Changes">
 				</div>
 			</div>
 		</form>
