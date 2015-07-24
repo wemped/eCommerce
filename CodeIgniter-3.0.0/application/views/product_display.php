@@ -7,6 +7,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/override.css">
     <script type="text/javascript">
     </script>
     <style type="text/css">
@@ -24,6 +25,15 @@
     .container .row .similar-album .similar-artist {
         color:silver;
     }
+    h2{
+        color: #f1002a;
+    }
+    h3 {
+        color: #000000;
+    }
+    .btn {
+        margin-top: 20px;
+    }
     </style>
     <script type="text/javascript">
     $(document).ready(function(){
@@ -38,6 +48,9 @@
     <div id = 'navbar'>
     </div>
     <div class='container'>
+        <div class="row">
+            <a href="/" class="right">Return to home</a>
+        </div>
         <div class='row valign-wrapper'>
             <div class='col s6 album-title'>
                 <h2 class='right valign'><?=$album['title']?></h2>
@@ -50,7 +63,7 @@
             <div class='col s4'>
                 <img src=<?=$album['img_src']?> class='album-img' />
             </div>
-            <div class='col s8 offset-m2 m2'>
+            <div class='col s8 offset-m1 m3'>
                 <form action = 'buy_album' method='post'>
                     <div class='input-field'>
                         <select name='quantity' class='browser-default'>
