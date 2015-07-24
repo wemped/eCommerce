@@ -141,4 +141,12 @@ class Orders extends CI_Controller {
 		$this->session->set_userdata('cart', $cart);
 		$this->summary_table();
 	}
+
+	public function single_order_page($id)
+	{
+		$shipping_info = $this->Order->get_shipping_info_for_order($id);
+		$billing_info = $this->Order->get_billing_info_for_order($id);
+		$order_info = $this->Order->get_order_info_for_order($id);
+		$this->load->view('single_order', array("ship" => $shipping_info, "bill" => $billing_info, "order" => $order_info));
+	}
 }
