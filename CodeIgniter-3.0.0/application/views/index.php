@@ -22,6 +22,9 @@
         margin: 0px;
         padding: 0px;
     }
+    .side-nav li a, .side-nav li p{
+        padding: 0px;
+    }
 
     </style>
     <script type="text/javascript">
@@ -128,7 +131,13 @@
                         <div class='collapsible-body'>
                             <ul>
 <?php                      foreach ($artists as $artist) { ?>
-                                    <li><a class='artist' data-artistid=<?=$artist['id']?>><div><p><?=$artist['artist']?></div></p></a></li>
+                                    <li>
+                                        <a class='artist' data-artistid=<?=$artist['id']?>>
+                                            <div>
+                                                <p><?=$artist['artist']?></p>
+                                            </div>
+                                        </a>
+                                    </li>
 <?php                      } ?>
                             </ul>
                         </div>
