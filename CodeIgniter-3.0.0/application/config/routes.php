@@ -7,6 +7,8 @@ $route['default_controller'] = 'albums';
 //Users - Login and Registration
 $route['login'] = 'users/login';
 $route['register'] = 'users/register';
+$route['logout'] = 'users/logout';
+$route['load_nav'] = 'users/nav_bar';
 
 /*User functionality*/
 $route['album_table_search'] = 'albums/search';
@@ -14,6 +16,10 @@ $route['cart'] = 'orders/details';
 $route['charge'] = 'orders/validate_order';
 $route['album_page/(:any)'] = 'albums/single_album_page/$1';
 $route['album_page/buy_album'] = 'albums/add_to_cart';
+$route['orders/summary_table'] = 'orders/summary_table';
+$route['orders/trash/(:any)'] = 'orders/trash/$1';
+$route['orders/add/(:any)'] = 'orders/add_unit/$1';
+$route['orders/minus/(:any)'] = 'orders/minus_unit/$1';
 
 /*Admin functionality*/
 $route['admin_home'] = 'albums/admin';

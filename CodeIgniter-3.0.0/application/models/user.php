@@ -65,7 +65,7 @@ class User extends CI_Model {
 		}
 		else
 		{
-			$query = "INSERT INTO users (first_name, last_name, email, password, admin, created_at, updated_at) VALUES (?,?,?,?, FALSE, NOW(), NOW())";
+			$query = "INSERT INTO users (first_name, last_name, email, password, user_level, created_at, updated_at) VALUES (?,?,?,?, FALSE, NOW(), NOW())";
 			$values = array($this->input->post('first_name'), $this->input->post('last_name'), $this->input->post('email'), $this->input->post('password'));
 			$user_id = $this->db->insert_id($this->db->query($query, $values));
 			$this->session->set_userdata('first_name', $this->input->post('first_name'));

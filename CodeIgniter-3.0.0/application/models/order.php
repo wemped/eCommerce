@@ -9,6 +9,27 @@ class Order extends CI_Model {
 		$this->load->library('form_validation');
 	}
 
+	public function order_info()
+	{
+		$cart = $this->session->userdata('cart');
+		$count = 1;
+		$where = " WHERE albums.id IN (";
+		foreach($cart as $album => $quantity)
+		{
+			if($count == 1)
+			{
+				$where .= "$album";
+			} else
+			{
+				$where .= ", $album";
+			}
+			$count ++;
+		}
+		$where .= ")";
+		$query = "SELECT id, title, album_cover, price FROM albums".$where;
+		return $this->db->query($query)->result_array();
+	}
+
 	public function is_valid_address($address, $type)
 	{
 		$this->form_validation->set_rules($type.'_first_name', 'First name', 'trim|required|min_length[2]|max_length[45]');

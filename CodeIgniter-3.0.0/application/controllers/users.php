@@ -38,5 +38,11 @@ class Users extends CI_Controller {
 		redirect('/login');
 	}
 
-
+	public function logout(){
+		$this->session->session_destroy();
+		redirect('/login');
+	}
+	public function nav_bar(){
+		$this->load->view('partials/general_navbar');
+	}
 }

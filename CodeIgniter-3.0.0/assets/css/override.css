@@ -39,13 +39,13 @@ div.error p
 	font-size: 0.8em;
 	color: red;
 }
-h3.ship
+h4.ship
 {
 	margin-bottom: 79px;
 }
 table
 {
-	margin-bottom: 70px;
+	margin-bottom: 30px;
 }
 #addressmatch
 {
@@ -63,4 +63,28 @@ button.stripe-button-el
 div.input-field select
 {
 	display: block;
+}
+img.checkout
+{
+	height: 40px;
+	vertical-align: middle;
+}
+p.center
+{
+	display: inline-block;
+	margin-left: 10px;
+}
+h2.border
+{
+	border-top: 1px solid silver;
+	margin-top: 50px;
+	padding-top: 20px;
+}
+img.small{
+	height: 15px;
+	cursor: pointer;
+}
+img.add
+{
+	margin-left: 15px;
 }

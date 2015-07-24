@@ -1,7 +1,7 @@
 <html>
 <head>
-	<title>Edit Album</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Edit Album</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -31,9 +31,14 @@
     	$(document).ready(function(){
     		$('select').material_select();
     	});
+            $.post('/load_nav',function(res){
+                $('#navbar').html(res);
+            });
     </script>
 </head>
 <body>
+    <div id='navbar'>
+    </div>
 	<?php
 	echo $this->session->flashdata("errors");
 	echo $this->session->flashdata("genre_error");
@@ -58,7 +63,6 @@
 					<label class = "active" for "price">Price</label>
 					<input type = "text" id = "price" name = "price" value = <?= $album['price'] ?>>
 				</div>
-
 			</div>
 			<div class = "row">
 				<div class = "input-field col s6">
