@@ -1,6 +1,9 @@
 <nav>
     <a href="/" class=" brand-logo"><i class=' medium material-icons'>play_circle_outline</i></a>
         <ul class='right'>
+<?php if($this->session->userdata('admin') == 1){ ?>
+			<li><a href="/admin_home">Admin Home</a></li>
+<?php } ?>
 <?php  if($this->session->userdata('userid') > 0){ ?>
             <li><a href="/logout">Logout</a></li>
 <?php  }else{ ?>

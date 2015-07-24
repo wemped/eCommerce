@@ -31,6 +31,11 @@
     }
     #edit_album_title{
     	color: #2BBBAD;
+    	display: inline-block;
+    }
+    a
+    {
+    	display: inline-block;
     }
     </style>
     <script type="text/javascript">
@@ -56,7 +61,7 @@
 	?>
 	<div class = "container">
 		<h3 id = "edit_album_title">Edit Album</h3>
-
+		<a href="/admin_home" class="right">Return to admin home</a>
 		<form action = "edit_album" method = "post">
 			<div class = "row">
 				<div class = "input-field col s12">
@@ -105,7 +110,7 @@
 						<div class = "col s3">
 <?php 					$open = FALSE;
 					}
-					$counter += 1;				
+					$counter += 1;
 					$valid = 0;
 					for($j = 0; $j < count($genre); $j++)
 					{

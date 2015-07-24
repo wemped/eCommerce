@@ -31,13 +31,43 @@
     	{
     		height: 200px;
     	}
+    	h3
+    	{
+    		display: inline-block;
+    	}
+    	a
+    	{
+    		display: inline-block;
+    	}
     </style>
 </head>
 <body>
-	<div id="navbar">
-	</div>
+    <nav>
+        <ul class='left'>
+            <li><a href="/admin_orders">Orders</a></li>
+        </ul>
+        <ul class='right'>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        <ul id='slide-out' class='side-nav'>
+            <li class='no-padding'>
+                <ul class='collapsible collapsible-accordian'>
+                    <li>
+                        <a class='collapsible-header active'>Categories<i class="mdi-navigation-arrow-drop-down"></i></a>
+                        <div class='collapsible-body'>
+                            <ul>
+                                <li><a>Orders</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <a href='' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-menu'></i></a>
+    </nav>
 	<div class='container'>
 		<h3>Add a new album</h3>
+		<a href="/admin_home" class="right">Return to admin home</a>
 		<?php
 		echo $this->session->flashdata("errors");
 		echo $this->session->flashdata("genre_error");
@@ -118,10 +148,10 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="cover_art col s4">
+					<div class="cover_art col s3">
 						<img class="center" src="http://www.crossfitpulse.com/wp-content/uploads/2012/12/question-mark.jpg">
 					</div>
-					<div class="input-field col s8">
+					<div class="input-field col s9">
 						<label class="active">Description</label>
 						<textarea id="description" name="description"></textarea>
 					</div>

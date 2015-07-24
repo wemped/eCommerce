@@ -114,6 +114,9 @@ if($this->session->userdata('userid') == null)
     <nav>
         <a href="" class=" brand-logo"><i class=' medium material-icons'>play_circle_outline</i></a>
         <ul class='right'>
+<?php       if($this->session->userdata('admin') == 1){ ?>
+                <li><a href="/admin_home">Admin Home</a></li>
+<?php       } ?>
 <?php       if($this->session->userdata('userid') > 1)
             { ?>
                 <li><a href="/logout">Logout</a></li>
@@ -165,7 +168,7 @@ if($this->session->userdata('userid') == null)
         </ul>
         <a href='' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-menu'></i></a>
     </nav>
-    <?php 
+    <?php
 
     /*var_dump($artists);
     var_dump($genres);*/ ?>

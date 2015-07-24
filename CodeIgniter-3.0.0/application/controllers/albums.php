@@ -18,6 +18,10 @@ class Albums extends CI_Controller {
 	}
 
 	public function admin(){
+		if($this->session->userdata('admin') != 1)
+		{
+			redirect('/');
+		}
 		$this->load->view('admin_index');
 	}
 
@@ -46,6 +50,10 @@ class Albums extends CI_Controller {
 
 	public function add_album_page()
 	{
+		if($this->session->userdata('admin') != 1)
+		{
+			redirect('/');
+		}
 		$albums = $this->album->get_all_albums();
 		$artists = $this->album->get_all_artists();
 		$genres = $this->album->get_all_genres();
@@ -149,6 +157,10 @@ class Albums extends CI_Controller {
 
 	public function edit_album_page($id)
 	{
+		if($this->session->userdata('admin') != 1)
+		{
+			redirect('/');
+		}
 		$album = $this->album->get_single_album($id);
 		$artist = $this->album->get_album_artist($id);
 		$genre = $this->album->get_album_genre($id);

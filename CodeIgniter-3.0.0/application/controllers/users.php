@@ -20,6 +20,10 @@ class Users extends CI_Controller {
 		{
 			if($this->User->login())
 			{
+				if($this->session->userdata('admin') == 1)
+				{
+					redirect('/admin_home');
+				}
 				redirect('/');
 			}
 		}

@@ -10,7 +10,11 @@ class Orders extends CI_Controller {
 		$this->load->model('Order');
 	}
 	public function admin(){
-	            $this->load->view('admin_orders');
+		if($this->session->userdata('admin') != 1)
+		{
+			redirect('/');
+		}
+	    $this->load->view('admin_orders');
 	}
 
 	public function admin_search(){

@@ -41,12 +41,8 @@
             <li><a href="/admin_orders">Orders</a></li>
         </ul>
         <ul class='right'>
-<?php  if($this->session->userdata('userid')){ ?>
-                <li><a href="/logout">Logout</a></li>
-<?php  }else{ ?>
-                <li><a href="/login">Login</a></li>
-<?php  } ?>
-
+            <li><a href="/">Shopping Home</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
         <ul id='slide-out' class='side-nav'>
             <li class='no-padding'>
