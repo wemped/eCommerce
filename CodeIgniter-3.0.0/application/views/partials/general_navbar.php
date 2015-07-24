@@ -1,5 +1,5 @@
 <nav>
-    <a href="/" class=" brand-logo"><i class=' medium material-icons'>play_circle_outline</i></a>
+    <a href="/" class=" brand-logo"><img class="logo" src="/assets/img/logo.png"></a>
         <ul class='right'>
 <?php if($this->session->userdata('admin') == 1){ ?>
 			<li><a href="/admin_home">Admin Home</a></li>

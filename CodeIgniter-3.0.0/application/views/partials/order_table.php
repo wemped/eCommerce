@@ -25,7 +25,7 @@ foreach($products as $album)
     $total = $quantity * $album['price'];
     $order_total += $total;
 ?>
-                <tr class='click-me'>
+                <tr>
                     <td><img class="checkout" src="<?= $album['album_cover'] ?>"><p class="center"><?= $album['title'] ?></p></td>
                     <td>$<?= $album['price'] ?></td>
                     <td><?= $str ?></td>

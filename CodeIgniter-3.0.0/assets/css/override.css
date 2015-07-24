@@ -15,7 +15,7 @@ span
 }
 nav
 {
-	background-color: #DE5842;
+	background-color: #00ABE8;
 }
 html
 {
@@ -24,11 +24,11 @@ html
 div.container
 {
 	background-color: white;
-	padding: 15px;
+	padding: 30px;
 }
 .btn
 {
-	background-color: #DE5842;
+	background-color: #F1002A;
 }
 .btn:hover
 {
@@ -53,7 +53,10 @@ table
 }
 img.logo
 {
-	height: 63px;
+	margin-left: 10px;
+	margin-top: 6px;
+	height: 50px;
+	vertical-align: center;
 }
 button.stripe-button-el
 {
@@ -90,5 +93,5 @@ img.add
 }
 h3
 {
-	color: #de5842;
+	color: #F1002A;
 }
