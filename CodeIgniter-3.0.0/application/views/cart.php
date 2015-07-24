@@ -3,8 +3,6 @@ if($this->session->userdata('cart') == null)
 {
     redirect('/');
 }
-var_dump($this->session->userdata('userid'));
-var_dump($ship['state']);
 ?>
 <html>
 <head>
