@@ -50,7 +50,7 @@ if($this->session->flashdata('reg_error'))
                     <div class="row">
                         <div class="input-field col s12">
                             <input placeholder="Last" id="last_name" name="last_name" type="text" class="validate">
-                            <label for="last_name">First Name</label>
+                            <label for="last_name">Last Name</label>
                         </div>
                     </div>
                     <div class="row">

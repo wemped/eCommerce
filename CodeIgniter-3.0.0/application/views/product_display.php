@@ -64,6 +64,12 @@
                 <img src=<?=$album['img_src']?> class='album-img' />
             </div>
             <div class='col s8 offset-m1 m3'>
+<?php           if($album['inventory'] == 0)
+                { ?>
+                    <p>Out of Stock</p>
+<?php           } 
+                else
+                {?>
                 <form action = 'buy_album' method='post'>
                     <div class='input-field'>
                         <select name='quantity' class='browser-default'>
@@ -75,6 +81,7 @@
                     <input type='hidden' name='album_id' value = <?= $album['id'] ?> />
                     <button type='submit' class='btn right'>Add to cart</button>
                 </form>
+<?php           } ?>
             </div>
         </div>
         <div class='row'>
