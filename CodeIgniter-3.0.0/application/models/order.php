@@ -125,4 +125,38 @@ class Order extends CI_Model {
 			$this->db->query('INSERT INTO albums_has_orders (album_id, order_id, quantity) VALUES (?,?,?)', $albumdata);
 		}
 	}
+
+	public function get_billing_info_for_order($id)
+	{
+		$query = "SELECT billing_addresses.address,billing_addresses.city,billing_addresses.zip,billing_addresses.state,billing_addresses.first_name,billing_addresses.last_name
+				  FROM billing_addresses
+				  JOIN orders
+				  ON billing_addresses.id = orders.billing_address_id
+				  WHERE orders.id = '{$id}'";
+		return $this->db->query($query)->row_array();
+	}
+
+	public function get_shipping_info_for_order($id)
+	{
+		$query = "SELECT shipping_addresses.address,shipping_addresses.city,shipping_addresses.zip,shipping_addresses.state,shipping_addresses.first_name,shipping_addresses.last_name
+				  FROM shipping_addresses
+				  JOIN orders
+				  ON shipping_addresses.id = orders.shipping_address_id
+				  WHERE orders.id = '{$id}'";
+		return $this->db->query($query)->row_array();
+	}
+
+	public function get_order_info_for_order($id)
+	{
+		$query = "SELECT albums_has_orders.album_id, albums.title, albums.price, albums_has_orders.quantity, orders.id, orders.state
+				  FROM orders
+				  JOIN albums_has_orders
+				  ON orders.id = albums_has_orders.order_id
+				  JOIN albums
+				  ON albums_has_orders.album_id = albums.id
+				  WHERE orders.id = '{$id}'";
+		return $this->db->query($query)->result_array();
+	}
+
+
 }
