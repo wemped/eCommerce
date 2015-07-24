@@ -139,24 +139,24 @@
 						?>
 					</table>
 				</div>
-<?php 			if($order[0]['state'] == 'Order in process')
+<?php 			if($order[0]['state'] == 'p')
 				{
-					$order_state = 'p';
+					$order_state = 'Order in process';
 				}
-				else if($order[0]['state'] == 'Order completed')
+				else if($order[0]['state'] == 'c')
 				{
-					$order_state = 'c';
+					$order_state = 'Order completed';
 				}
-				else if($order[0]['state'] == "Order deleted")
+				else if($order[0]['state'] == 'd')
 				{
-					$order_state = 'd';
+					$order_state = "Order deleted";
 				}
 				else
 				{
-					$order_state = 's';
+					$order_state = 'Order shipped';
 				} ?>
-				<div class = <?= $order_state ?>>
-					<p>Status: <?= $order[0]['state'] ?></p>
+				<div class = <?= $order[0]['state'] ?>>
+					<p>Status: <?= $order_state ?></p>
 				</div>
 				<div class = "total">
 					<p>Sub Total: $<?= $total ?></p>
