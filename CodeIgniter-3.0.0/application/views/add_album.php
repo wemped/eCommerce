@@ -8,6 +8,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/override.css">
     <script type="text/javascript">
     	$(document).ready(function(){
     		$('select').material_select();
@@ -44,9 +45,11 @@
 <body>
     <nav>
         <ul class='left'>
-            <li><a href="/admin_orders">Orders</a></li>
+        	<li><a href="/" class=" brand-logo"><img class="logo" src="/assets/img/logo.png"></a></li>
         </ul>
         <ul class='right'>
+        	<li><a href="/admin_orders">Orders</a></li>
+        	<li><a href="/">Shopping Home</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
         <ul id='slide-out' class='side-nav'>
@@ -151,8 +154,8 @@
 					<div class="cover_art col s3">
 						<img class="center" src="http://www.crossfitpulse.com/wp-content/uploads/2012/12/question-mark.jpg">
 					</div>
-					<div class="input-field col s9">
-						<label class="active">Description</label>
+					<div class="col s9">
+						<label class="active" for="description">Description</label>
 						<textarea id="description" name="description"></textarea>
 					</div>
 				</div>

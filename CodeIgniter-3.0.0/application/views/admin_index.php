@@ -7,6 +7,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/override.css">
     <style type="text/css">
     .preview_img{
         max-width: 100px;
@@ -38,9 +39,10 @@
 <body>
     <nav>
         <ul class='left'>
-            <li><a href="/admin_orders">Orders</a></li>
+            <li><a href="/" class=" brand-logo"><img class="logo" src="/assets/img/logo.png"></a></li>
         </ul>
         <ul class='right'>
+            <li><a href="/admin_orders">Orders</a></li>
             <li><a href="/">Shopping Home</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>

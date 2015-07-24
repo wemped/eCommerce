@@ -7,6 +7,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/override.css">
     <style type="text/css">
     .preview_img{
         max-width: 100px;
@@ -26,17 +27,6 @@
     #description{
     	height: 150px;
     }
-    .btn{
-    	background-color: #EE6E73;
-    }
-    #edit_album_title{
-    	color: #2BBBAD;
-    	display: inline-block;
-    }
-    a
-    {
-    	display: inline-block;
-    }
     </style>
     <script type="text/javascript">
     	$(document).ready(function(){
@@ -52,16 +42,39 @@
     </script>
 </head>
 <body>
-    <div id='navbar'>
-    </div>
+    <nav>
+        <ul class='left'>
+        	<li><a href="/" class=" brand-logo"><img class="logo" src="/assets/img/logo.png"></a></li>
+        </ul>
+        <ul class='right'>
+        	<li><a href="/admin_orders">Orders</a></li>
+        	<li><a href="/">Shopping Home</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        <ul id='slide-out' class='side-nav'>
+            <li class='no-padding'>
+                <ul class='collapsible collapsible-accordian'>
+                    <li>
+                        <a class='collapsible-header active'>Categories<i class="mdi-navigation-arrow-drop-down"></i></a>
+                        <div class='collapsible-body'>
+                            <ul>
+                                <li><a>Orders</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <a href='' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-menu'></i></a>
+    </nav>
 	<?php
 	echo $this->session->flashdata("errors");
 	echo $this->session->flashdata("genre_error");
 	echo $this->session->flashdata("artist_error");
 	?>
 	<div class = "container">
-		<h3 id = "edit_album_title">Edit Album</h3>
 		<a href="/admin_home" class="right">Return to admin home</a>
+		<h3>Edit Album</h3>
 		<form action = "edit_album" method = "post">
 			<div class = "row">
 				<div class = "input-field col s12">
@@ -158,11 +171,7 @@
 				</div>
 			</div>
 			<input type = "hidden" name = "album_id" value = <?= $album['id'] ?>>
-			<div class = "row">
-				<div class = "col s2 offset-s10">
-					<input class = "btn" type = "submit" value = " Save Changes">
-				</div>
-			</div>
+			<button class = "btn right" type = "submit">Save Changes</button>
 		</form>
 	</div>
 </body>
