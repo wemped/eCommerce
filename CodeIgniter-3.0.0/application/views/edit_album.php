@@ -36,10 +36,14 @@
     <script type="text/javascript">
     	$(document).ready(function(){
     		$('select').material_select();
-    	});
             $.post('/load_nav',function(res){
                 $('#navbar').html(res);
             });
+            $('#album_cover').change(function(){
+    			var str = $('#album_cover').val();
+    			$('div.cover_art img').attr('src', str);
+    		});
+    	});
     </script>
 </head>
 <body>
@@ -137,7 +141,7 @@
 				</div>
 			</div>
 			<div class = "row">
-				<div class = "col s3">
+				<div class = " cover_art col s3">
 					<p>Current Album Cover</p>
 					<img src=<?= $album['img_src'] ?> class = "album_cover">
 				</div>
